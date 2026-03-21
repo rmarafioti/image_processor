@@ -12,6 +12,10 @@
   }
 }
 
+.processor_container {
+  display: flex;
+}
+
 .image_container_wrapper {
   /* Compensate for the space the untransformed element would occupy */
   width: calc(1400px * 0.2);
@@ -31,12 +35,25 @@
 }
 
 .template_bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: white;
   width: 1400px;
   height: 200px;
 }
 
-.text {
+.text,
+.show_info {
   font-size: 48pt;
   color: #000000;
+}
+
+.show_info_container {
+  display: flex;
+}
+
+.show_info_container > p{
+  font-size: 42pt;
 }
