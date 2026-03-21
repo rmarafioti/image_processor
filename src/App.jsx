@@ -1,13 +1,47 @@
-/*import { useState } from "react";*/
+import { useState } from "react";
 import styles from "./landing_page.module.css";
 
 export default function App() {
-  const shows = {
-    show_name: "Big Shoulders Soul System",
-    host_name: "Rich Marafioti",
-    time: "18.00 ET",
-    frequency: "monthly",
+  const formInitialState = {
+    show: "",
+    month_name: "",
+    day: "",
+    guest_host: "",
   };
+
+  const [formState, setFormState] = useState(formInitialState);
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleClearGuestHost = () => {
+    setFormState((prev) => ({ ...prev, guest_host: "" }));
+  };
+
+  const shows = [
+    {
+      id: 1,
+      show_name: "Test Show",
+      host_name: "Jerry Seinfeld",
+      time: "12.00 ET",
+      frequency: "weekly",
+    },
+    {
+      id: 2,
+      show_name: "Big Shoulders Soul System",
+      host_name: "Rich Marafioti",
+      time: "18.00 ET",
+      frequency: "monthly",
+    },
+  ];
+
+  const selectedShow = shows.find((show) => show.id === Number(formState.show));
+
+  const days = Array.from({ length: 31 }, (_, i) =>
+    String(i + 1).padStart(2, "0"),
+  );
 
   const months = [
     "Jan",
@@ -32,27 +66,83 @@ export default function App() {
           <section className={styles.image_container_wrapper}>
             <div className={styles.image_container}>
               <div className={styles.template_bar}>
-                <p className={styles.text}>{shows.show_name}</p>
+                <p className={styles.text}>{selectedShow?.show_name}</p>
                 <div className={styles.show_info_container}>
-                  <p className={styles.show_info}>{shows.host_name}</p>
+                  <p className={styles.show_info}>
+                    {formState.guest_host || selectedShow?.host_name}
+                  </p>
                   <p>&#124;</p>
-                  {shows.frequency === "monthly" ? (
+                  {selectedShow?.frequency === "monthly" ? (
                     " "
                   ) : (
-                    <p className={styles.show_info}>Day</p>
+                    <p className={styles.show_info}>{formState.day || "Day"}</p>
                   )}
-                  <p className={styles.show_info}>Month</p>
+                  <p className={styles.show_info}>
+                    {formState.month_name || "Month"}
+                  </p>
                   <p>&#124;</p>
-                  <p className={styles.show_info}>{shows.time}</p>
+                  <p className={styles.show_info}>{selectedShow?.time}</p>
                 </div>
               </div>
             </div>
           </section>
           <section>
-            <p>Format A Show</p>
             <p>Select a show</p>
-            <p>select month</p>
-            <p>Select date</p>
+            <select
+              className={styles.timeForm}
+              name="show"
+              value={formState.show}
+              aria-label="users_selected_show"
+              onChange={handleFormChange}
+            >
+              <option value="">Select a show</option>
+              {shows.map((show) => (
+                <option key={show.id} value={show.id}>
+                  {show.show_name}
+                </option>
+              ))}
+            </select>
+            <p>Optional Guest Host</p>
+            <input
+              className={styles.form}
+              type="text"
+              name="guest_host"
+              aria-label="guest_host"
+              value={formState.guest_host}
+              onChange={handleFormChange}
+              placeholder="enter guest host name"
+            />
+            <button onClick={handleClearGuestHost}>Clear Guest Name</button>
+            <p>Select day</p>
+            <select
+              className={styles.timeForm}
+              name="day"
+              value={formState.day}
+              aria-label="users_selected_day"
+              onChange={handleFormChange}
+            >
+              <option value="">Select a day</option>
+              {days.map((day, index) => (
+                <option key={index} value={day}>
+                  {day}
+                </option>
+              ))}
+            </select>
+            <p>Select a Month</p>
+            <select
+              className={styles.timeForm}
+              name="month_name"
+              value={formState.month_name}
+              aria-label="users_selected_month"
+              onChange={handleFormChange}
+            >
+              <option value="">Select a month</option>
+              {months.map((month, index) => (
+                <option key={index} value={month}>
+                  {month}
+                </option>
+              ))}
+            </select>
             <p>Use Default Image</p>
             <p>Upload Image</p>
             <p>Clear Image</p>
