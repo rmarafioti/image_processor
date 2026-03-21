@@ -21,6 +21,7 @@
   width: calc(1400px * 0.2);
   height: calc(1400px * 0.2);
   overflow: hidden;
+  margin-right: 4rem;
 }
 
 .image_container {
@@ -44,6 +45,23 @@
   height: 200px;
 }
 
+.fields {
+  width: 260px;
+}
+.action_container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.action_container > button {
+  width: 120px;
+}
+
+.clear_image_button {
+  margin-right: 4rem;
+}
+
 .text,
 .show_info {
   font-size: 48pt;
@@ -54,6 +72,19 @@
   display: flex;
 }
 
-.show_info_container > p{
+.show_info_container > p {
   font-size: 42pt;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.guest_host_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.guest_host_button {
+  margin-bottom: 1rem;
 }

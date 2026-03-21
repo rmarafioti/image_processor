@@ -63,33 +63,47 @@ export default function App() {
       <section className={styles.center}>
         <h1>This is the image processor project!</h1>
         <article className={styles.processor_container}>
-          <section className={styles.image_container_wrapper}>
-            <div className={styles.image_container}>
-              <div className={styles.template_bar}>
-                <p className={styles.text}>{selectedShow?.show_name}</p>
-                <div className={styles.show_info_container}>
-                  <p className={styles.show_info}>
-                    {formState.guest_host || selectedShow?.host_name}
+          <div>
+            <section className={styles.image_container_wrapper}>
+              <div className={styles.image_container}>
+                <div className={styles.template_bar}>
+                  <p className={styles.text}>
+                    {selectedShow?.show_name || "Show Name"}
                   </p>
-                  <p>&#124;</p>
-                  {selectedShow?.frequency === "monthly" ? (
-                    " "
-                  ) : (
-                    <p className={styles.show_info}>{formState.day || "Day"}</p>
-                  )}
-                  <p className={styles.show_info}>
-                    {formState.month_name || "Month"}
-                  </p>
-                  <p>&#124;</p>
-                  <p className={styles.show_info}>{selectedShow?.time}</p>
+                  <div className={styles.show_info_container}>
+                    <p className={styles.show_info}>
+                      {formState.guest_host ||
+                        selectedShow?.host_name ||
+                        "Host Name"}
+                    </p>
+                    <p>&#124;</p>
+                    {selectedShow?.frequency === "monthly" ? (
+                      " "
+                    ) : (
+                      <p className={styles.show_info}>
+                        {formState.day || "XX"}
+                      </p>
+                    )}
+                    <p className={styles.show_info}>
+                      {formState.month_name || "XXX"}
+                    </p>
+                    <p>&#124;</p>
+                    <p className={styles.show_info}>
+                      {selectedShow?.time || "00.00 ET"}
+                    </p>
+                  </div>
                 </div>
               </div>
+            </section>
+            <div className={styles.action_container}>
+              <button>Download Art</button>
+              <button className={styles.clear_image_button}>Clear Image</button>
             </div>
-          </section>
-          <section>
+          </div>
+          <section className={styles.fields}>
             <p>Select a show</p>
             <select
-              className={styles.timeForm}
+              className={styles.field}
               name="show"
               value={formState.show}
               aria-label="users_selected_show"
@@ -103,19 +117,30 @@ export default function App() {
               ))}
             </select>
             <p>Optional Guest Host</p>
-            <input
-              className={styles.form}
-              type="text"
-              name="guest_host"
-              aria-label="guest_host"
-              value={formState.guest_host}
-              onChange={handleFormChange}
-              placeholder="enter guest host name"
-            />
-            <button onClick={handleClearGuestHost}>Clear Guest Name</button>
+            <div className={styles.guest_host_container}>
+              <input
+                className={styles.field}
+                type="text"
+                name="guest_host"
+                aria-label="guest_host"
+                value={formState.guest_host}
+                onChange={handleFormChange}
+                placeholder="enter guest host name"
+              />
+              {formState.guest_host != "" ? (
+                <button
+                  onClick={handleClearGuestHost}
+                  className={styles.guest_host_button}
+                >
+                  Clear Guest Name
+                </button>
+              ) : (
+                ""
+              )}
+            </div>
             <p>Select day</p>
             <select
-              className={styles.timeForm}
+              className={styles.field}
               name="day"
               value={formState.day}
               aria-label="users_selected_day"
@@ -130,7 +155,7 @@ export default function App() {
             </select>
             <p>Select a Month</p>
             <select
-              className={styles.timeForm}
+              className={styles.field}
               name="month_name"
               value={formState.month_name}
               aria-label="users_selected_month"
@@ -143,11 +168,11 @@ export default function App() {
                 </option>
               ))}
             </select>
-            <p>Use Default Image</p>
-            <p>Upload Image</p>
-            <p>Clear Image</p>
-            <p>Download Show Art</p>
-            <p>Next Template</p>
+            <div className={styles.action_container}>
+              <button>Use Default Image</button>
+              <button>Upload Image</button>
+            </div>
+            {/*<p>Next Template</p>*/}
           </section>
         </article>
       </section>
