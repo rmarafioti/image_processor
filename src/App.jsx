@@ -30,7 +30,7 @@ export default function App() {
     },
     {
       id: 2,
-      show_name: "Big Shoulders Soul System",
+      show_name: "BIG SHOULDERS SOUL SYSTEM",
       host_name: "Rich Marafioti",
       time: "18.00 ET",
       frequency: "monthly",
