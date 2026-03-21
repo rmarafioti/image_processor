@@ -5,8 +5,13 @@ export default function App() {
   return (
     <>
       <section className={styles.center}>
-        <div>
-          <h1>This is the image processor project!</h1>
+        <h1>This is the image processor project!</h1>
+        <div className={styles.image_container_wrapper}>
+          <div className={styles.image_container}>
+            <div className={styles.template_bar}>
+              <p className={styles.text}>Show Name</p>
+            </div>
+          </div>
         </div>
       </section>
     </>

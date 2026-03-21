@@ -12,3 +12,31 @@
   }
 }
 
+.image_container_wrapper {
+  /* Compensate for the space the untransformed element would occupy */
+  width: calc(1400px * 0.2);
+  height: calc(1400px * 0.2);
+  overflow: hidden;
+}
+
+.image_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 1400px;
+  width: 1400px;
+  background-color: #c4c4c4;
+  transform: scale(0.2);
+  transform-origin: top left;
+}
+
+.template_bar {
+  background-color: white;
+  width: 1400px;
+  height: 200px;
+}
+
+.text {
+  font-size: 48pt;
+  color: #000000;
+}
