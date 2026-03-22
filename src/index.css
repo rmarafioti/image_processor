@@ -30,7 +30,6 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
 }
 
 body {
@@ -52,8 +51,8 @@ input,
 button {
   width: 400px;
   padding: .8rem .5rem .8rem .5rem;
-  border-radius: 2px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 select {
@@ -62,6 +61,8 @@ select {
 
 input {
   padding-left: .5rem;
+  box-shadow: none;
+  border: 2px solid #c4c4c4;
 }
 
 button {

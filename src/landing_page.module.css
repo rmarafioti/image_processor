@@ -25,22 +25,19 @@
   background-color: #c4c4c4;
   transform: scale(0.3);
   transform-origin: top left;
+
+  background-size: cover;
+  background-position: center;
 }
 
-.template_bar_top,
-.template_bar_bottom {
+.template_bar {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   background-color: white;
   width: 1400px;
-  height: 99px;
-}
-
-.template_bar_bottom {
-  justify-content: center;
-  height: 101px;
+  height: 200px;
 }
 
 .fields {
@@ -62,16 +59,21 @@
 
 .text,
 .show_info {
-  font-size: 48pt;
+  font-size: 38pt;
   color: #000000;
   letter-spacing: 0.18em;
   line-height: 1;
 }
 
+.text {
+  padding-top: 1rem;
+  margin-bottom: 2rem;
+}
+
 .show_info {
   font-family: "b_show_info", sans-serif;
-  padding-right: 1rem;
-  padding-left: 1rem;
+  padding-right: .5rem;
+  padding-left: .5rem;
 }
 
 .show_info_container {
@@ -79,7 +81,7 @@
 }
 
 .show_info_container > p {
-  font-size: 32pt;
+  font-size: 24pt;
 }
 
 .field {

@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { domToPng } from "modern-screenshot";
 import styles from "./landing_page.module.css";
+import { shows, months, days } from "./data/formSelects";
 
 export default function App() {
   const formInitialState = {
@@ -7,56 +9,67 @@ export default function App() {
     month_name: "",
     day: "",
     guest_host: "",
+    default_image: "",
   };
 
   const [formState, setFormState] = useState(formInitialState);
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setFormState((prev) => ({ ...prev, [name]: value }));
+    if (name === "show") {
+      setFormState({ ...formInitialState, show: value });
+    } else {
+      setFormState((prev) => ({ ...prev, [name]: value }));
+    }
   };
 
   const handleClearGuestHost = () => {
     setFormState((prev) => ({ ...prev, guest_host: "" }));
   };
 
-  const shows = [
-    {
-      id: 1,
-      show_name: "Test Show",
-      host_name: "Jerry Seinfeld",
-      time: "12.00 ET",
-      frequency: "weekly",
-    },
-    {
-      id: 2,
-      show_name: "Big Shoulders Soul System",
-      host_name: "Rich Marafioti",
-      time: "18.00 ET",
-      frequency: "monthly",
-    },
-  ];
+  const handleDefaultImage = () => {
+    if (!selectedShow?.default_image) return;
+    setFormState((prev) => ({
+      ...prev,
+      default_image: selectedShow.default_image,
+    }));
+  };
+
+  const handleClearImage = () => {
+    setFormState((prev) => ({ ...prev, default_image: "" }));
+  };
 
   const selectedShow = shows.find((show) => show.id === Number(formState.show));
 
-  const days = Array.from({ length: 31 }, (_, i) =>
-    String(i + 1).padStart(2, "0"),
-  );
+  const containerRef = useRef(null);
 
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const handleDownload = async () => {
+    if (!containerRef.current) return;
+
+    // Temporarily remove the transform so it captures at full 1400px
+    containerRef.current.style.transform = "none";
+
+    const dataUrl = await domToPng(containerRef.current, {
+      width: 1400,
+      height: 1400,
+      scale: 1,
+    });
+
+    // Restore the transform
+    containerRef.current.style.transform = "scale(0.3)";
+
+    const year = String(new Date().getFullYear()).slice(-2);
+    const month = formState.month_name?.toUpperCase() || "XXX";
+    const showName =
+      selectedShow?.show_name?.toLowerCase().replace(/\s+/g, "-") || "show-art";
+
+    const fileName = `${month}${year}-${showName}`;
+
+    const link = document.createElement("a");
+    link.download = `${fileName}.png`;
+    link.href = dataUrl;
+    link.click();
+  };
 
   return (
     <>
@@ -65,13 +78,20 @@ export default function App() {
         <article className={styles.processor_container}>
           <div>
             <section className={styles.image_container_wrapper}>
-              <div className={styles.image_container}>
-                <div className={styles.template_bar_top}>
+              <div
+                ref={containerRef}
+                className={styles.image_container}
+                style={
+                  formState.default_image
+                    ? { backgroundImage: `url(${formState.default_image})` }
+                    : undefined
+                }
+              >
+                <div className={styles.template_bar}>
                   <p className={styles.text}>
                     {selectedShow?.show_name || "Show Name"}
                   </p>
-                </div>
-                <div className={styles.template_bar_bottom}>
+
                   <div className={styles.show_info_container}>
                     <p className={styles.show_info}>
                       {formState.guest_host ||
@@ -90,7 +110,9 @@ export default function App() {
                     <p className={styles.show_info}>
                       {formState.month_name || "XXX"}
                     </p>
-                    <p className={styles.show_info}>2026</p>
+                    <p className={styles.show_info}>
+                      {new Date().getFullYear()}
+                    </p>
                     <p className={styles.show_info}>&#124;</p>
                     <p className={styles.show_info}>
                       {selectedShow?.time || "00.00 ET"}
@@ -100,8 +122,13 @@ export default function App() {
               </div>
             </section>
             <div className={styles.action_container}>
-              <button>Download Art</button>
-              <button className={styles.clear_image_button}>Clear Image</button>
+              <button onClick={handleDownload}>Download Art</button>
+              <button
+                onClick={handleClearImage}
+                className={styles.clear_image_button}
+              >
+                Clear Image
+              </button>
             </div>
           </div>
           <section className={styles.fields}>
@@ -129,7 +156,7 @@ export default function App() {
                 aria-label="guest_host"
                 value={formState.guest_host}
                 onChange={handleFormChange}
-                placeholder="enter guest host name"
+                placeholder="enter guest name here"
               />
               {formState.guest_host != "" ? (
                 <button
@@ -173,7 +200,13 @@ export default function App() {
               ))}
             </select>
             <div className={styles.action_container}>
-              <button>Use Default Image</button>
+              <button
+                name="default_image"
+                value={formState.default_image}
+                onClick={handleDefaultImage}
+              >
+                Use Default Image
+              </button>
               <button>Upload Image</button>
             </div>
             {/*<p>Next Template</p>*/}
