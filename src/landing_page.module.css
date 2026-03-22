@@ -1,15 +1,7 @@
 .center {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+  align-items: center;
 }
 
 .processor_container {
@@ -18,8 +10,8 @@
 
 .image_container_wrapper {
   /* Compensate for the space the untransformed element would occupy */
-  width: calc(1400px * 0.2);
-  height: calc(1400px * 0.2);
+  width: calc(1400px * 0.3);
+  height: calc(1400px * 0.3);
   overflow: hidden;
   margin-right: 4rem;
 }
@@ -31,22 +23,28 @@
   height: 1400px;
   width: 1400px;
   background-color: #c4c4c4;
-  transform: scale(0.2);
+  transform: scale(0.3);
   transform-origin: top left;
 }
 
-.template_bar {
+.template_bar_top,
+.template_bar_bottom {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   background-color: white;
   width: 1400px;
-  height: 200px;
+  height: 99px;
+}
+
+.template_bar_bottom {
+  justify-content: center;
+  height: 101px;
 }
 
 .fields {
-  width: 260px;
+  width: 400px;
 }
 .action_container {
   display: flex;
@@ -55,7 +53,7 @@
 }
 
 .action_container > button {
-  width: 120px;
+  width: 180px;
 }
 
 .clear_image_button {
@@ -66,6 +64,14 @@
 .show_info {
   font-size: 48pt;
   color: #000000;
+  letter-spacing: 0.18em;
+  line-height: 1;
+}
+
+.show_info {
+  font-family: "b_show_info", sans-serif;
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 
 .show_info_container {
@@ -73,7 +79,7 @@
 }
 
 .show_info_container > p {
-  font-size: 42pt;
+  font-size: 32pt;
 }
 
 .field {

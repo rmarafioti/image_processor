@@ -30,7 +30,7 @@ export default function App() {
     },
     {
       id: 2,
-      show_name: "BIG SHOULDERS SOUL SYSTEM",
+      show_name: "Big Shoulders Soul System",
       host_name: "Rich Marafioti",
       time: "18.00 ET",
       frequency: "monthly",
@@ -61,22 +61,25 @@ export default function App() {
   return (
     <>
       <section className={styles.center}>
-        <h1>This is the image processor project!</h1>
+        <h1>the face radio image processor</h1>
         <article className={styles.processor_container}>
           <div>
             <section className={styles.image_container_wrapper}>
               <div className={styles.image_container}>
-                <div className={styles.template_bar}>
+                <div className={styles.template_bar_top}>
                   <p className={styles.text}>
                     {selectedShow?.show_name || "Show Name"}
                   </p>
+                </div>
+                <div className={styles.template_bar_bottom}>
                   <div className={styles.show_info_container}>
                     <p className={styles.show_info}>
                       {formState.guest_host ||
                         selectedShow?.host_name ||
                         "Host Name"}
                     </p>
-                    <p>&#124;</p>
+
+                    <p className={styles.show_info}>&#124;</p>
                     {selectedShow?.frequency === "monthly" ? (
                       " "
                     ) : (
@@ -87,7 +90,8 @@ export default function App() {
                     <p className={styles.show_info}>
                       {formState.month_name || "XXX"}
                     </p>
-                    <p>&#124;</p>
+                    <p className={styles.show_info}>2026</p>
+                    <p className={styles.show_info}>&#124;</p>
                     <p className={styles.show_info}>
                       {selectedShow?.time || "00.00 ET"}
                     </p>
