@@ -93,6 +93,18 @@
   flex-direction: column;
 }
 
-.guest_host_button {
+.guest_host_button,
+.guest_host_button_active {
   margin-bottom: 1rem;
 }
+
+.guest_host_button {
+  color: transparent;
+  box-shadow: none;
+  background-color: #ece1e1;
+}
+
+.guest_host_button:hover {
+  background-color: transparent;
+}
+

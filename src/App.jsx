@@ -161,12 +161,14 @@ export default function App() {
               {formState.guest_host != "" ? (
                 <button
                   onClick={handleClearGuestHost}
-                  className={styles.guest_host_button}
+                  className={styles.guest_host_button_active}
                 >
                   Clear Guest Name
                 </button>
               ) : (
-                ""
+                <button className={styles.guest_host_button}>
+                  Not Active Button
+                </button>
               )}
             </div>
             <p>Select day</p>
@@ -208,6 +210,10 @@ export default function App() {
                 Use Default Image
               </button>
               <button>Upload Image</button>
+            </div>
+            <div className={styles.action_container}>
+              <button>Crop Image</button>
+              <button>Image Fill</button>
             </div>
             {/*<p>Next Template</p>*/}
           </section>
