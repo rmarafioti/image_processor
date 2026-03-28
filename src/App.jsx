@@ -71,6 +71,13 @@ export default function App() {
     link.click();
   };
 
+  const isAddToQueueDisabled =
+    !formState.show ||
+    !formState.default_image ||
+    !formState.month_name ||
+    /*if show is weekly button is disbaled if no day is selected*/
+    (selectedShow?.frequency === "weekly" && !formState.day);
+
   return (
     <>
       <section className={styles.center}>
@@ -121,21 +128,25 @@ export default function App() {
                 </div>
               </div>
             </section>
+            {isAddToQueueDisabled ? (
+              <p className={styles.note}>
+                <i>
+                  *You cannot add art to the queue without a show, image, and
+                  date selected 🚫
+                </i>
+              </p>
+            ) : (
+              <p className={styles.note}>
+                <i>*Show art is ready to be added to the download queue! 😎</i>
+              </p>
+            )}
+
             <div className={styles.action_container}>
               {/* this button holds the download functionality,
               we want to move this functionality to a button in the download queue
               and replace this buttons functionality with one that puts the processed
               art in the download queue*/}
-              <button
-                onClick={handleDownload}
-                disabled={
-                  !formState.show ||
-                  !formState.default_image ||
-                  !formState.month_name ||
-                  /*if show is weekly button is disbaled if no day is selected*/
-                  (selectedShow?.frequency === "weekly" && !formState.day)
-                }
-              >
+              <button onClick={handleDownload} disabled={isAddToQueueDisabled}>
                 Download Art
               </button>
               <button

@@ -62,7 +62,6 @@ select {
 input {
   padding-left: .5rem;
   box-shadow: none;
-  border: 2px solid #c4c4c4;
 }
 
 button {
