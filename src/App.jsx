@@ -122,10 +122,26 @@ export default function App() {
               </div>
             </section>
             <div className={styles.action_container}>
-              <button onClick={handleDownload}>Download Art</button>
+              {/* this button holds the download functionality,
+              we want to move this functionality to a button in the download queue
+              and replace this buttons functionality with one that puts the processed
+              art in the download queue*/}
+              <button
+                onClick={handleDownload}
+                disabled={
+                  !formState.show ||
+                  !formState.default_image ||
+                  !formState.month_name ||
+                  /*if show is weekly button is disbaled if no day is selected*/
+                  (selectedShow?.frequency === "weekly" && !formState.day)
+                }
+              >
+                Download Art
+              </button>
               <button
                 onClick={handleClearImage}
                 className={styles.clear_image_button}
+                disabled={!formState.default_image}
               >
                 Clear Image
               </button>
@@ -156,21 +172,20 @@ export default function App() {
                 aria-label="guest_host"
                 value={formState.guest_host}
                 onChange={handleFormChange}
+                disabled={!formState.show}
                 placeholder="enter guest name here"
               />
-              {formState.guest_host != "" ? (
-                <button
-                  onClick={handleClearGuestHost}
-                  className={styles.guest_host_button_active}
-                >
-                  Clear Guest Name
-                </button>
-              ) : (
-                <button className={styles.guest_host_button}>
-                  Not Active Button
-                </button>
-              )}
+              <button
+                onClick={handleClearGuestHost}
+                disabled={!formState.guest_host}
+                className={styles.guest_host_button_active}
+              >
+                Clear Guest Name
+              </button>
             </div>
+            {/*{formState.show != "" ? (
+
+            )}*/}
             <p>Select day</p>
             <select
               className={styles.field}
@@ -178,6 +193,7 @@ export default function App() {
               value={formState.day}
               aria-label="users_selected_day"
               onChange={handleFormChange}
+              disabled={!formState.show}
             >
               <option value="">Select a day</option>
               {days.map((day, index) => (
@@ -193,6 +209,7 @@ export default function App() {
               value={formState.month_name}
               aria-label="users_selected_month"
               onChange={handleFormChange}
+              disabled={!formState.show}
             >
               <option value="">Select a month</option>
               {months.map((month, index) => (
@@ -206,14 +223,15 @@ export default function App() {
                 name="default_image"
                 value={formState.default_image}
                 onClick={handleDefaultImage}
+                disabled={!formState.show}
               >
                 Use Default Image
               </button>
-              <button>Upload Image</button>
+              <button disabled={!formState.show}>Upload Image</button>
             </div>
             <div className={styles.action_container}>
-              <button>Crop Image</button>
-              <button>Image Fill</button>
+              <button disabled={!formState.default_image}>Crop Image</button>
+              <button disabled={!formState.default_image}>Image Fill</button>
             </div>
             {/*<p>Next Template</p>*/}
           </section>
