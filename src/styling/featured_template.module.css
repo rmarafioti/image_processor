@@ -1,0 +1,75 @@
+.processor_container {
+  display: flex;
+}
+
+.image_container_wrapper {
+  /* Compensate for the space the untransformed element would occupy */
+  width: calc(1400px * 0.3);
+  height: calc(1550px * 0.3);
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.image_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 1550px;
+  width: 1400px;
+  background-color: #c4c4c4;
+  transform: scale(0.3);
+  transform-origin: top left;
+
+  background-size: cover;
+  background-position: center;
+}
+
+.template_bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 1400px;
+  height: 200px;
+}
+
+.text,
+.show_info {
+  font-size: 38pt;
+  color: #000000;
+  letter-spacing: 0.18em;
+  line-height: 1;
+}
+
+.text {
+  padding-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.show_info {
+  font-family: "b_show_info", sans-serif;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.show_info_container {
+  display: flex;
+}
+
+.show_info_container > p {
+  font-size: 24pt;
+}
+
+.note {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  text-transform: none;
+  width: 400px;
+  margin-top: 1rem;
+}
+
+.queue_button {
+  margin-top: 1rem;
+  width: 100%
+}
