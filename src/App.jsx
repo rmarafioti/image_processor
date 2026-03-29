@@ -82,6 +82,104 @@ export default function App() {
     <>
       <section className={styles.center}>
         <h1>the face radio image processor</h1>
+        <section className={styles.fields}>
+          <div>
+            <p>Select a show</p>
+            <select
+              className={styles.field}
+              name="show"
+              value={formState.show}
+              aria-label="users_selected_show"
+              onChange={handleFormChange}
+            >
+              <option value="">Select a show</option>
+              {shows.map((show) => (
+                <option key={show.id} value={show.id}>
+                  {show.show_name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <p>Optional Guest Host</p>
+            <div className={styles.guest_host_container}>
+              <input
+                className={styles.field}
+                type="text"
+                name="guest_host"
+                aria-label="guest_host"
+                value={formState.guest_host}
+                onChange={handleFormChange}
+                disabled={!formState.show}
+                placeholder="enter guest name here"
+              />
+              <button
+                onClick={handleClearGuestHost}
+                disabled={!formState.guest_host}
+                className={styles.guest_host_button}
+              >
+                Clear Guest Name
+              </button>
+            </div>
+          </div>
+          <div>
+            <p>Select day</p>
+            <select
+              className={styles.field}
+              name="day"
+              value={formState.day}
+              aria-label="users_selected_day"
+              onChange={handleFormChange}
+              disabled={!formState.show}
+            >
+              <option value="">Select a day</option>
+              {days.map((day, index) => (
+                <option key={index} value={day}>
+                  {day}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <p>Select a Month</p>
+            <select
+              className={styles.field}
+              name="month_name"
+              value={formState.month_name}
+              aria-label="users_selected_month"
+              onChange={handleFormChange}
+              disabled={!formState.show}
+            >
+              <option value="">Select a month</option>
+              {months.map((month, index) => (
+                <option key={index} value={month}>
+                  {month}
+                </option>
+              ))}
+            </select>
+          </div>
+        </section>
+        <section className={styles.fields}>
+          <button
+            name="default_image"
+            value={formState.default_image}
+            onClick={handleDefaultImage}
+            disabled={!formState.show}
+          >
+            Use Default Image
+          </button>
+          <button disabled={!formState.show}>Upload Image</button>
+          <button disabled={!formState.default_image}>
+            Fill Image in Frame
+          </button>
+          <button disabled={!formState.default_image}>Adjust Image</button>
+          <button
+            onClick={handleClearImage}
+            disabled={!formState.default_image}
+          >
+            Clear Image
+          </button>
+        </section>
         <article className={styles.processor_container}>
           <div>
             <section className={styles.image_container_wrapper}>
@@ -141,111 +239,20 @@ export default function App() {
               </p>
             )}
 
-            <div className={styles.action_container}>
+            <div>
               {/* this button holds the download functionality,
               we want to move this functionality to a button in the download queue
               and replace this buttons functionality with one that puts the processed
               art in the download queue*/}
-              <button onClick={handleDownload} disabled={isAddToQueueDisabled}>
-                Download Art
-              </button>
               <button
-                onClick={handleClearImage}
-                className={styles.clear_image_button}
-                disabled={!formState.default_image}
+                onClick={handleDownload}
+                disabled={isAddToQueueDisabled}
+                className={styles.queue_button}
               >
-                Clear Image
+                Add Art to Download Queue
               </button>
             </div>
           </div>
-          <section className={styles.fields}>
-            <p>Select a show</p>
-            <select
-              className={styles.field}
-              name="show"
-              value={formState.show}
-              aria-label="users_selected_show"
-              onChange={handleFormChange}
-            >
-              <option value="">Select a show</option>
-              {shows.map((show) => (
-                <option key={show.id} value={show.id}>
-                  {show.show_name}
-                </option>
-              ))}
-            </select>
-            <p>Optional Guest Host</p>
-            <div className={styles.guest_host_container}>
-              <input
-                className={styles.field}
-                type="text"
-                name="guest_host"
-                aria-label="guest_host"
-                value={formState.guest_host}
-                onChange={handleFormChange}
-                disabled={!formState.show}
-                placeholder="enter guest name here"
-              />
-              <button
-                onClick={handleClearGuestHost}
-                disabled={!formState.guest_host}
-                className={styles.guest_host_button_active}
-              >
-                Clear Guest Name
-              </button>
-            </div>
-            {/*{formState.show != "" ? (
-
-            )}*/}
-            <p>Select day</p>
-            <select
-              className={styles.field}
-              name="day"
-              value={formState.day}
-              aria-label="users_selected_day"
-              onChange={handleFormChange}
-              disabled={!formState.show}
-            >
-              <option value="">Select a day</option>
-              {days.map((day, index) => (
-                <option key={index} value={day}>
-                  {day}
-                </option>
-              ))}
-            </select>
-            <p>Select a Month</p>
-            <select
-              className={styles.field}
-              name="month_name"
-              value={formState.month_name}
-              aria-label="users_selected_month"
-              onChange={handleFormChange}
-              disabled={!formState.show}
-            >
-              <option value="">Select a month</option>
-              {months.map((month, index) => (
-                <option key={index} value={month}>
-                  {month}
-                </option>
-              ))}
-            </select>
-            <div className={styles.action_container}>
-              <button
-                name="default_image"
-                value={formState.default_image}
-                onClick={handleDefaultImage}
-                disabled={!formState.show}
-              >
-                Use Default Image
-              </button>
-              <button disabled={!formState.show}>Upload Image</button>
-            </div>
-            <div className={styles.action_container}>
-              <button disabled={!formState.default_image}>Crop Image</button>
-              <button disabled={!formState.default_image}>Image Fill</button>
-            </div>
-            {/*<p>Next Template</p>*/}
-          </section>
         </article>
       </section>
     </>

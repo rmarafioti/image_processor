@@ -49,7 +49,7 @@ p {
 select,
 input,
 button {
-  width: 400px;
+  width: 300px;
   padding: .8rem .5rem .8rem .5rem;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
