@@ -66,7 +66,7 @@ const FeaturedTemplate = forwardRef(
           and replace this buttons functionality with one that puts the processed
           art in the download queue*/}
             <button
-              onClick={() => handleDownload(ref, 1400, 1550, "featured")}
+              onClick={() => handleDownload(ref, 1400, 1750, "featured")}
               disabled={isAddToQueueDisabled}
               className={styles.queue_button}
             >

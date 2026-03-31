@@ -5,7 +5,7 @@
 .image_container_wrapper {
   /* Compensate for the space the untransformed element would occupy */
   width: calc(1400px * 0.3);
-  height: calc(1550px * 0.3);
+  height: calc(1750px * 0.3);
   overflow: hidden;
   margin-top: 2rem;
 }
