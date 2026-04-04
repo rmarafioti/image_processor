@@ -4,3 +4,8 @@
   align-items: center;
   margin-bottom: 6rem;
 }
+
+.template_section {
+  display: flex;
+  margin-bottom: 4rem;
+}

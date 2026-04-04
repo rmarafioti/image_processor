@@ -1,6 +1,10 @@
+.template {
+  margin-left: 8rem;
+}
+
 .header_container {
   display: flex;
-  width: 420px;
+  width: 404px;
 }
 
 .template_name {
@@ -15,8 +19,8 @@
 
 .image_container_wrapper {
   /* Compensate for the space the untransformed element would occupy */
-  width: calc(1400px * 0.3);
-  height: calc(1750px * 0.267);
+  width: calc(1200px * 0.3);
+  height: calc(600px * 0.245);
   overflow: hidden;
   margin-top: 1rem;
 }
@@ -25,8 +29,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 1550px;
-  width: 1400px;
+  height: 480px;
+  width: 1200px;
   background-color: #c4c4c4;
   transform: scale(0.3);
   transform-origin: top left;
@@ -41,21 +45,21 @@
   justify-content: center;
   align-items: center;
   background-color: white;
-  width: 1400px;
-  height: 200px;
+  width: 1200px;
+  height: 120px;
 }
 
 .text,
 .show_info {
-  font-size: 38pt;
+  font-size: 30pt;
   color: #000000;
   letter-spacing: 0.18em;
   line-height: 1;
 }
 
 .text {
-  padding-top: 1rem;
-  margin-bottom: 2rem;
+  padding-top: 0rem;
+  margin-bottom: .5rem;
 }
 
 .show_info {
@@ -69,7 +73,7 @@
 }
 
 .show_info_container > p {
-  font-size: 24pt;
+  font-size: 23pt;
 }
 
 .note {

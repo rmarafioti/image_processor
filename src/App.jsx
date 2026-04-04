@@ -1,9 +1,12 @@
 import { useState, useRef } from "react";
 import { shows } from "./data/formSelects";
 import { domToPng } from "modern-screenshot";
+
 import Controls from "./components/Controls";
 import FeaturedTemplate from "./components/FeaturedTemplate";
 import ArchiveTemplate from "./components/ArchiveTemplate";
+import FacebookTemplate from "./components/FacebookTemplate";
+import BlueskyTemplate from "./components/BlueskyTemplate";
 
 import styles from "./landing_page.module.css";
 
@@ -94,20 +97,38 @@ export default function App() {
           handleDefaultImage={handleDefaultImage}
           handleClearImage={handleClearImage}
         />
-        <ArchiveTemplate
-          formState={formState}
-          selectedShow={selectedShow}
-          handleDownload={handleDownload}
-          isAddToQueueDisabled={isAddToQueueDisabled}
-          ref={templateArchiveRef}
-        />
-        <FeaturedTemplate
-          formState={formState}
-          selectedShow={selectedShow}
-          handleDownload={handleDownload}
-          isAddToQueueDisabled={isAddToQueueDisabled}
-          ref={templateFeaturedRef}
-        />
+        <div className={styles.template_section}>
+          <FeaturedTemplate
+            formState={formState}
+            selectedShow={selectedShow}
+            handleDownload={handleDownload}
+            isAddToQueueDisabled={isAddToQueueDisabled}
+            ref={templateFeaturedRef}
+          />
+          <ArchiveTemplate
+            formState={formState}
+            selectedShow={selectedShow}
+            handleDownload={handleDownload}
+            isAddToQueueDisabled={isAddToQueueDisabled}
+            ref={templateArchiveRef}
+          />
+        </div>
+        <div className={styles.template_section}>
+          <FacebookTemplate
+            formState={formState}
+            selectedShow={selectedShow}
+            handleDownload={handleDownload}
+            isAddToQueueDisabled={isAddToQueueDisabled}
+            ref={templateArchiveRef}
+          />
+          <BlueskyTemplate
+            formState={formState}
+            selectedShow={selectedShow}
+            handleDownload={handleDownload}
+            isAddToQueueDisabled={isAddToQueueDisabled}
+            ref={templateArchiveRef}
+          />
+        </div>
       </section>
     </>
   );

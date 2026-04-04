@@ -1,5 +1,20 @@
+.template {
+  margin-left: 8rem;
+}
+
+.header_container {
+  display: flex;
+  width: 420px;
+}
+
+.template_name {
+  font-size: 28px;
+  align-self: left;
+}
+
 .processor_container {
   display: flex;
+  margin-bottom: 2rem;
 }
 
 .image_container_wrapper {
@@ -7,7 +22,7 @@
   width: calc(1400px * 0.3);
   height: calc(1400px * 0.3);
   overflow: hidden;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 .image_container {
@@ -69,7 +84,17 @@
   margin-top: 1rem;
 }
 
-.queue_button {
+.button_section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.format_button,
+.stage_download_button {
   margin-top: 1rem;
-  width: 100%
+  width: 120px;
+}
+
+.format_button {
+  margin-right: 1rem;
 }

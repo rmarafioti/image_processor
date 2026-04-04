@@ -138,19 +138,6 @@ export default function Controls({
                   <button disabled={!formState.show} className={styles.field}>
                     Upload Image
                   </button>
-                  <p>Format Image</p>
-                  <button
-                    disabled={!formState.default_image}
-                    className={styles.field}
-                  >
-                    Fill Image in Frame
-                  </button>
-                  <button
-                    disabled={!formState.default_image}
-                    className={styles.field}
-                  >
-                    Adjust Image
-                  </button>
                   <button
                     onClick={handleClearImage}
                     disabled={!formState.default_image}
