@@ -54,7 +54,7 @@ export default function App() {
   const handleDownload = async (ref, width, height, templateName) => {
     if (!ref.current) return;
 
-    // Temporarily remove the transform so it captures at full 1400px
+    // Temporarily remove the transform so it captures at full image
     ref.current.style.transform = "none";
 
     const dataUrl = await domToPng(ref.current, {
@@ -84,6 +84,8 @@ export default function App() {
     !formState.default_image ||
     !formState.month_name ||
     /*if show is weekly button is disbaled if no day is selected*/
+    /*above comment is false we actually need the day now playing templat even if weekly
+    remove the statemeng below*/
     (selectedShow?.frequency === "weekly" && !formState.day);
 
   return (

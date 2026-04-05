@@ -8,6 +8,7 @@ export const shows = [
       "https://res.cloudinary.com/dzpne110u/image/upload/v1774145188/fr_image_processor_test/seinfled_archive_default_lkc2lz.jpg",
     day: "MON",
     frequency: "weekly",
+    location: "New York",
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const shows = [
       "https://res.cloudinary.com/dzpne110u/image/upload/v1774148867/fr_image_processor_test/big_shoulders_121625_ajdr9o.png",
     day: "SAT",
     frequency: "monthly",
+    location: "Chicago",
   },
 ];
 
