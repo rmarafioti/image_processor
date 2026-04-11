@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { shows, months, days } from "../data/formSelects";
 
+import { MdClose } from "react-icons/md";
+
 import styles from "../styling/controls.module.css";
 
 export default function Controls({
@@ -28,7 +30,7 @@ export default function Controls({
               className={styles.close_button}
               onClick={() => setIsMenuVisible(false)}
             >
-              Close Menu
+              <MdClose />
             </button>
             <div>
               <p>Select a show</p>
@@ -114,22 +116,27 @@ export default function Controls({
                 <>
                   <div>
                     <p>Pick an image</p>
-                    <button
-                      name="default_image"
-                      value={formState.default_image}
-                      onClick={handleDefaultImage}
-                      disabled={!formState.show}
-                      className={styles.field}
-                    >
-                      Use Default Image
-                    </button>
-                    <button disabled={!formState.show} className={styles.field}>
-                      Upload Image
-                    </button>
+                    <div className={styles.button_section}>
+                      <button
+                        name="default_image"
+                        value={formState.default_image}
+                        onClick={handleDefaultImage}
+                        disabled={!formState.show}
+                        className={styles.image_button}
+                      >
+                        Default
+                      </button>
+                      <button
+                        disabled={!formState.show}
+                        className={styles.image_button}
+                      >
+                        Upload
+                      </button>
+                    </div>
                     <button
                       onClick={handleClearImage}
                       disabled={!formState.default_image}
-                      className={styles.field}
+                      className={styles.remove_button}
                     >
                       Remove Image
                     </button>
