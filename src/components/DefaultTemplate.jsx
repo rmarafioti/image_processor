@@ -1,5 +1,7 @@
 import { forwardRef } from "react";
 
+import main_styles from "../styling/default_template.module.css";
+
 const DefaultTemplate = forwardRef(
   (
     {
@@ -17,9 +19,9 @@ const DefaultTemplate = forwardRef(
     return (
       <article className={styles.template}>
         <div className={styles.header_container}>
-          <p className={styles.template_name}>{templateName} Template</p>
+          <p className={main_styles.template_name}>{templateName} Template</p>
         </div>
-        <article className={styles.processor_container}>
+        <article className={main_styles.processor_container}>
           <div>
             <section className={styles.image_container_wrapper}>
               <div
@@ -66,22 +68,26 @@ const DefaultTemplate = forwardRef(
               </div>
             </section>
             {isAddToQueueDisabled ? (
-              <p className={styles.note}>
+              <p className={main_styles.note}>
                 <i>
                   *You cannot add art to the queue without a show, image, and
                   date selected 🚫
                 </i>
               </p>
             ) : (
-              <p className={styles.note}>
+              <p className={main_styles.note}>
                 <i>*Show art is ready to be added to the download queue! 😎</i>
               </p>
             )}
 
-            <div className={styles.button_section}>
+            <div className={main_styles.button_section}>
               <div>
-                <button className={styles.format_button}>Crop Image</button>
-                <button className={styles.format_button}>Fill Image</button>
+                <button className={main_styles.format_button}>
+                  Crop Image
+                </button>
+                <button className={main_styles.format_button}>
+                  Fill Image
+                </button>
               </div>
               {/* this button holds the download functionality,
                 we want to move this functionality to a button in the download queue
@@ -90,7 +96,7 @@ const DefaultTemplate = forwardRef(
               <button
                 onClick={() => handleDownload(ref, width, height, templateName)}
                 disabled={isAddToQueueDisabled}
-                className={styles.stage_download_button}
+                className={main_styles.stage_download_button}
               >
                 check
               </button>

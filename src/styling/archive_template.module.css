@@ -7,16 +7,6 @@
   width: 420px;
 }
 
-.template_name {
-  font-size: 28px;
-  align-self: left;
-}
-
-.processor_container {
-  display: flex;
-  margin-bottom: 2rem;
-}
-
 .image_container_wrapper {
   /* Compensate for the space the untransformed element would occupy */
   width: calc(1400px * 0.3);
@@ -74,27 +64,4 @@
 
 .show_info_container > p {
   font-size: 24pt;
-}
-
-.note {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 18px;
-  text-transform: none;
-  width: 400px;
-  margin-top: 1rem;
-}
-
-.button_section {
-  display: flex;
-  justify-content: space-between;
-}
-
-.format_button,
-.stage_download_button {
-  margin-top: 1rem;
-  width: 120px;
-}
-
-.format_button {
-  margin-right: 1rem;
 }
