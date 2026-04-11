@@ -11,7 +11,7 @@ export default function Controls({
   handleClearImage,
 }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const [activePanel, setActivePanel] = useState(null);
+  /*const [activePanel, setActivePanel] = useState(null);*/
 
   return (
     <>
@@ -21,7 +21,6 @@ export default function Controls({
       >
         Edit Art
       </button>
-
       {isMenuVisible && (
         <>
           <section className={styles.control_menu}>
@@ -31,37 +30,25 @@ export default function Controls({
             >
               Close Menu
             </button>
-            <button
-              className={styles.close_button}
-              onClick={() => setActivePanel("showInfo")}
-            >
-              Show Info
-            </button>
-            <button
-              className={styles.close_button}
-              onClick={() => setActivePanel("image")}
-            >
-              Image Formatting
-            </button>
-            {activePanel === "showInfo" && (
+            <div>
+              <p>Select a show</p>
+              <select
+                className={styles.field}
+                name="show"
+                value={formState.show}
+                aria-label="users_selected_show"
+                onChange={handleFormChange}
+              >
+                <option value="">Select a show</option>
+                {shows.map((show) => (
+                  <option key={show.id} value={show.id}>
+                    {show.show_name} / {show.host_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {formState.show !== "" && (
               <>
-                <div>
-                  <p>Select a show</p>
-                  <select
-                    className={styles.field}
-                    name="show"
-                    value={formState.show}
-                    aria-label="users_selected_show"
-                    onChange={handleFormChange}
-                  >
-                    <option value="">Select a show</option>
-                    {shows.map((show) => (
-                      <option key={show.id} value={show.id}>
-                        {show.show_name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
                 <div>
                   <p>Optional Guest Host</p>
                   <div className={styles.guest_host_container}>
@@ -72,7 +59,6 @@ export default function Controls({
                       aria-label="guest_host"
                       value={formState.guest_host}
                       onChange={handleFormChange}
-                      disabled={!formState.show}
                       placeholder="enter guest name here"
                     />
                     <button
@@ -122,32 +108,34 @@ export default function Controls({
                 </div>
               </>
             )}
-            {activePanel === "image" && (
-              <>
-                <div>
-                  <p>Pick an image</p>
-                  <button
-                    name="default_image"
-                    value={formState.default_image}
-                    onClick={handleDefaultImage}
-                    disabled={!formState.show}
-                    className={styles.field}
-                  >
-                    Use Default Image
-                  </button>
-                  <button disabled={!formState.show} className={styles.field}>
-                    Upload Image
-                  </button>
-                  <button
-                    onClick={handleClearImage}
-                    disabled={!formState.default_image}
-                    className={styles.field}
-                  >
-                    Remove Image
-                  </button>
-                </div>
-              </>
-            )}
+            {formState.show !== "" &&
+              formState.day !== "" &&
+              formState.month_name !== "" && (
+                <>
+                  <div>
+                    <p>Pick an image</p>
+                    <button
+                      name="default_image"
+                      value={formState.default_image}
+                      onClick={handleDefaultImage}
+                      disabled={!formState.show}
+                      className={styles.field}
+                    >
+                      Use Default Image
+                    </button>
+                    <button disabled={!formState.show} className={styles.field}>
+                      Upload Image
+                    </button>
+                    <button
+                      onClick={handleClearImage}
+                      disabled={!formState.default_image}
+                      className={styles.field}
+                    >
+                      Remove Image
+                    </button>
+                  </div>
+                </>
+              )}
           </section>
         </>
       )}
