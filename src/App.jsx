@@ -3,10 +3,10 @@ import { shows } from "./data/formSelects";
 import { domToPng } from "modern-screenshot";
 
 import Controls from "./components/Controls";
-import FeaturedTemplate from "./components/FeaturedTemplate";
-import ArchiveTemplate from "./components/ArchiveTemplate";
-import FacebookTemplate from "./components/FacebookTemplate";
-import BlueskyTemplate from "./components/BlueskyTemplate";
+import FeaturedTemplate from "./templates/FeaturedTemplate";
+import ArchiveTemplate from "./templates/ArchiveTemplate";
+import FacebookTemplate from "./templates/FacebookTemplate";
+import BlueskyTemplate from "./templates/BlueskyTemplate";
 
 import styles from "./landing_page.module.css";
 

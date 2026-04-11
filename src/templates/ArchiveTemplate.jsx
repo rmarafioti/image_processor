@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import DefaultTemplate from "./DefaultTemplate";
+import DefaultTemplate from "../components/DefaultTemplate";
 
 import styles from "../styling/archive_template.module.css";
 
