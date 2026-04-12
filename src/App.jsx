@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import { shows } from "./data/formSelects";
+import { useState, useRef, useEffect } from "react";
 import { domToPng } from "modern-screenshot";
+import useForm from "./hooks/useForm";
 
 import Controls from "./components/Controls";
 import FeaturedTemplate from "./templates/FeaturedTemplate";
@@ -11,45 +11,14 @@ import BlueskyTemplate from "./templates/BlueskyTemplate";
 import styles from "./landing_page.module.css";
 
 export default function App() {
-  /* form functionality */
-  const formInitialState = {
-    show: "",
-    month_name: "",
-    day: "",
-    guest_host: "",
-    default_image: "",
-  };
-
-  const [formState, setFormState] = useState(formInitialState);
-
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "show") {
-      setFormState({ ...formInitialState, show: value });
-    } else {
-      setFormState((prev) => ({ ...prev, [name]: value }));
-    }
-  };
-
-  const handleClearGuestHost = () => {
-    setFormState((prev) => ({ ...prev, guest_host: "" }));
-  };
-
-  const handleDefaultImage = () => {
-    if (!selectedShow?.default_image) return;
-    setFormState((prev) => ({
-      ...prev,
-      default_image: selectedShow.default_image,
-    }));
-  };
-
-  const handleClearImage = () => {
-    setFormState((prev) => ({ ...prev, default_image: "" }));
-  };
-
-  const selectedShow = shows.find((show) => show.id === Number(formState.show));
-
-  /* end form functionality */
+  const {
+    formState,
+    selectedShow,
+    handleFormChange,
+    handleClearGuestHost,
+    handleDefaultImage,
+    handleClearImage,
+  } = useForm();
 
   /* download functionality */
 
@@ -58,7 +27,6 @@ export default function App() {
   const templateFacebookRef = useRef(null);
   const templateBlueskyRef = useRef(null);
 
-  /* add this is a separte date file and import? */
   const templates = [
     {
       ref: templateArchiveRef,
@@ -124,30 +92,53 @@ export default function App() {
     link.click();
   };
 
+  const [downloadStatus, setDownloadStatus] = useState("idle"); // "idle" | "downloading" | "success" | "error"
+
+  const downloadLabel = {
+    idle: "Download Selected",
+    downloading: "Downloading...",
+    success: "Download Successful! ✓",
+    error: "Error Downloading ✗",
+  };
+
   const handleDownloadAll = async () => {
     const toDownload = templates.filter((t) =>
       selectedTemplates.includes(t.templateName),
     );
-    for (const template of toDownload) {
-      await handleDownload(
-        template.ref,
-        template.width,
-        template.height,
-        template.templateName,
-      );
+
+    setDownloadStatus("downloading");
+
+    try {
+      for (const template of toDownload) {
+        await handleDownload(
+          template.ref,
+          template.width,
+          template.height,
+          template.templateName,
+        );
+      }
+      setDownloadStatus("success");
+    } catch (error) {
+      setDownloadStatus("error");
     }
   };
-
-  /* end download functionality */
 
   const isAddToQueueDisabled =
     !formState.show ||
     !formState.default_image ||
     !formState.month_name ||
-    /*if show is weekly button is disbaled if no day is selected*/
-    /*above comment is false we actually need the day now playing templat even if weekly
-    remove the statemeng below*/
+    /* we need separtate conditions for each tempalate to add to the queue
+ - if weekly, the first 4 templates need a name, day and month
+ - if monthly the first 4 templates need a name and month only
+ - both weekly and monthly need a name day and month for the 5th template
+ - both weekly and monthly need a name, location and full show timespan for the 6th template */
     (selectedShow?.frequency === "weekly" && !formState.day);
+
+  useEffect(() => {
+    if (isAddToQueueDisabled) {
+      setSelectedTemplates([]);
+    }
+  }, [isAddToQueueDisabled]);
 
   return (
     <>
@@ -155,6 +146,7 @@ export default function App() {
         <h1>image processor</h1>
         <Controls
           formState={formState}
+          selectedShow={selectedShow}
           handleFormChange={handleFormChange}
           handleClearGuestHost={handleClearGuestHost}
           handleDefaultImage={handleDefaultImage}
@@ -202,9 +194,13 @@ export default function App() {
         </div>
         <button
           onClick={handleDownloadAll}
-          disabled={isAddToQueueDisabled || selectedTemplates.length === 0}
+          disabled={
+            isAddToQueueDisabled ||
+            selectedTemplates.length === 0 ||
+            downloadStatus === "downloading"
+          }
         >
-          Download Selected
+          {downloadLabel[downloadStatus]}
         </button>
       </section>
     </>

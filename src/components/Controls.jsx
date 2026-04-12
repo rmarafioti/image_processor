@@ -7,13 +7,13 @@ import styles from "../styling/controls.module.css";
 
 export default function Controls({
   formState,
+  selectedShow,
   handleFormChange,
   handleClearGuestHost,
   handleDefaultImage,
   handleClearImage,
 }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  /*const [activePanel, setActivePanel] = useState(null);*/
 
   return (
     <>
@@ -110,39 +110,43 @@ export default function Controls({
                 </div>
               </>
             )}
-            {formState.show !== "" &&
+            {((selectedShow?.frequency === "weekly" &&
+              formState.show !== "" &&
               formState.day !== "" &&
-              formState.month_name !== "" && (
-                <>
-                  <div>
-                    <p>Pick an image</p>
-                    <div className={styles.button_section}>
-                      <button
-                        name="default_image"
-                        value={formState.default_image}
-                        onClick={handleDefaultImage}
-                        disabled={!formState.show}
-                        className={styles.image_button}
-                      >
-                        Default
-                      </button>
-                      <button
-                        disabled={!formState.show}
-                        className={styles.image_button}
-                      >
-                        Upload
-                      </button>
-                    </div>
+              formState.month_name !== "") ||
+              (selectedShow?.frequency === "monthly" &&
+                formState.show !== "" &&
+                formState.month_name !== "")) && (
+              <>
+                <div>
+                  <p>Pick an image</p>
+                  <div className={styles.button_section}>
                     <button
-                      onClick={handleClearImage}
-                      disabled={!formState.default_image}
-                      className={styles.remove_button}
+                      name="default_image"
+                      value={formState.default_image}
+                      onClick={handleDefaultImage}
+                      disabled={!formState.show}
+                      className={styles.image_button}
                     >
-                      Remove Image
+                      Default
+                    </button>
+                    <button
+                      disabled={!formState.show}
+                      className={styles.image_button}
+                    >
+                      Upload
                     </button>
                   </div>
-                </>
-              )}
+                  <button
+                    onClick={handleClearImage}
+                    disabled={!formState.default_image}
+                    className={styles.remove_button}
+                  >
+                    Remove Image
+                  </button>
+                </div>
+              </>
+            )}
           </section>
         </>
       )}
