@@ -39,6 +39,17 @@ const useForm = () => {
     setFormState((prev) => ({ ...prev, default_image: "" }));
   };
 
+  const isAddToQueueDisabled =
+    !formState.show ||
+    !formState.default_image ||
+    !formState.month_name ||
+    /* we need separtate conditions for each tempalate to add to the queue
+ - if weekly, the first 4 templates need a name, day and month
+ - if monthly the first 4 templates need a name and month only
+ - both weekly and monthly need a name day and month for the 5th template
+ - both weekly and monthly need a name, location and full show timespan for the 6th template */
+    (selectedShow?.frequency === "weekly" && !formState.day);
+
   return {
     formState,
     selectedShow,
@@ -46,6 +57,7 @@ const useForm = () => {
     handleClearGuestHost,
     handleDefaultImage,
     handleClearImage,
+    isAddToQueueDisabled,
   };
 };
 

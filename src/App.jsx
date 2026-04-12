@@ -11,6 +11,7 @@ import BlueskyTemplate from "./templates/BlueskyTemplate";
 import styles from "./landing_page.module.css";
 
 export default function App() {
+  /* handle form functionality */
   const {
     formState,
     selectedShow,
@@ -18,10 +19,38 @@ export default function App() {
     handleClearGuestHost,
     handleDefaultImage,
     handleClearImage,
+    isAddToQueueDisabled,
   } = useForm();
 
-  /* download functionality */
+  /* select queued up templates */
+  const [selectedTemplates, setSelectedTemplates] = useState([]);
 
+  const handleTemplateSelect = (templateName) => {
+    setSelectedTemplates((prev) =>
+      prev.includes(templateName)
+        ? prev.filter((t) => t !== templateName)
+        : [...prev, templateName],
+    );
+  };
+
+  /* clear queued templates when form conditions are not met */
+  useEffect(() => {
+    if (isAddToQueueDisabled) {
+      setSelectedTemplates([]);
+    }
+  }, [isAddToQueueDisabled]);
+
+  /* download status for download button */
+  const [downloadStatus, setDownloadStatus] = useState("idle"); // "idle" | "downloading" | "success" | "error"
+
+  const downloadLabel = {
+    idle: "Download Selected",
+    downloading: "Downloading...",
+    success: "Download Successful! ✓",
+    error: "Error Downloading ✗",
+  };
+
+  /* refs and config for each template */
   const templateArchiveRef = useRef(null);
   const templateFeaturedRef = useRef(null);
   const templateFacebookRef = useRef(null);
@@ -54,16 +83,7 @@ export default function App() {
     },
   ];
 
-  const [selectedTemplates, setSelectedTemplates] = useState([]);
-
-  const handleTemplateSelect = (templateName) => {
-    setSelectedTemplates((prev) =>
-      prev.includes(templateName)
-        ? prev.filter((t) => t !== templateName)
-        : [...prev, templateName],
-    );
-  };
-
+  /* capture and download a single template */
   const handleDownload = async (ref, width, height, templateName) => {
     if (!ref.current) return;
 
@@ -92,15 +112,7 @@ export default function App() {
     link.click();
   };
 
-  const [downloadStatus, setDownloadStatus] = useState("idle"); // "idle" | "downloading" | "success" | "error"
-
-  const downloadLabel = {
-    idle: "Download Selected",
-    downloading: "Downloading...",
-    success: "Download Successful! ✓",
-    error: "Error Downloading ✗",
-  };
-
+  /* download all selected at once */
   const handleDownloadAll = async () => {
     const toDownload = templates.filter((t) =>
       selectedTemplates.includes(t.templateName),
@@ -122,23 +134,6 @@ export default function App() {
       setDownloadStatus("error");
     }
   };
-
-  const isAddToQueueDisabled =
-    !formState.show ||
-    !formState.default_image ||
-    !formState.month_name ||
-    /* we need separtate conditions for each tempalate to add to the queue
- - if weekly, the first 4 templates need a name, day and month
- - if monthly the first 4 templates need a name and month only
- - both weekly and monthly need a name day and month for the 5th template
- - both weekly and monthly need a name, location and full show timespan for the 6th template */
-    (selectedShow?.frequency === "weekly" && !formState.day);
-
-  useEffect(() => {
-    if (isAddToQueueDisabled) {
-      setSelectedTemplates([]);
-    }
-  }, [isAddToQueueDisabled]);
 
   return (
     <>
