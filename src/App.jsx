@@ -17,6 +17,7 @@ export default function App() {
     selectedShow,
     handleFormChange,
     handleClearGuestHost,
+    handleUploadImage,
     handleDefaultImage,
     handleClearImage,
     isAddToQueueDisabled,
@@ -144,6 +145,7 @@ export default function App() {
           selectedShow={selectedShow}
           handleFormChange={handleFormChange}
           handleClearGuestHost={handleClearGuestHost}
+          handleUploadImage={handleUploadImage}
           handleDefaultImage={handleDefaultImage}
           handleClearImage={handleClearImage}
         />

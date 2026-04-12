@@ -27,8 +27,8 @@ const DefaultTemplate = forwardRef(
                 ref={ref}
                 className={styles.image_container}
                 style={
-                  formState.default_image
-                    ? { backgroundImage: `url(${formState.default_image})` }
+                  formState.show_image
+                    ? { backgroundImage: `url(${formState.show_image})` }
                     : undefined
                 }
               >

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { shows, months, days } from "../data/formSelects";
 
 import { MdClose } from "react-icons/md";
@@ -10,10 +10,13 @@ export default function Controls({
   selectedShow,
   handleFormChange,
   handleClearGuestHost,
+  handleUploadImage,
   handleDefaultImage,
   handleClearImage,
 }) {
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+
+  const fileInputRef = useRef(null);
 
   return (
     <>
@@ -122,8 +125,6 @@ export default function Controls({
                   <p>Pick an image</p>
                   <div className={styles.button_section}>
                     <button
-                      name="default_image"
-                      value={formState.default_image}
                       onClick={handleDefaultImage}
                       disabled={!formState.show}
                       className={styles.image_button}
@@ -131,15 +132,23 @@ export default function Controls({
                       Default
                     </button>
                     <button
+                      onClick={() => fileInputRef.current.click()}
                       disabled={!formState.show}
                       className={styles.image_button}
                     >
                       Upload
                     </button>
                   </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className={styles.hidden_input}
+                    ref={fileInputRef}
+                    onChange={handleUploadImage}
+                  />
                   <button
                     onClick={handleClearImage}
-                    disabled={!formState.default_image}
+                    disabled={!formState.show_image}
                     className={styles.remove_button}
                   >
                     Remove Image

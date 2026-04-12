@@ -7,7 +7,7 @@ const useForm = () => {
     month_name: "",
     day: "",
     guest_host: "",
-    default_image: "",
+    show_image: "",
   };
 
   const [formState, setFormState] = useState(formInitialState);
@@ -27,21 +27,31 @@ const useForm = () => {
     setFormState((prev) => ({ ...prev, guest_host: "" }));
   };
 
+  const handleUploadImage = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      setFormState((prev) => ({ ...prev, show_image: event.target.result }));
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleDefaultImage = () => {
     if (!selectedShow?.default_image) return;
     setFormState((prev) => ({
       ...prev,
-      default_image: selectedShow.default_image,
+      show_image: selectedShow.default_image,
     }));
   };
 
   const handleClearImage = () => {
-    setFormState((prev) => ({ ...prev, default_image: "" }));
+    setFormState((prev) => ({ ...prev, show_image: "" }));
   };
 
   const isAddToQueueDisabled =
     !formState.show ||
-    !formState.default_image ||
+    !formState.show_image ||
     !formState.month_name ||
     /* we need separtate conditions for each tempalate to add to the queue
  - if weekly, the first 4 templates need a name, day and month
@@ -55,6 +65,7 @@ const useForm = () => {
     selectedShow,
     handleFormChange,
     handleClearGuestHost,
+    handleUploadImage,
     handleDefaultImage,
     handleClearImage,
     isAddToQueueDisabled,

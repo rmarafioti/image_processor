@@ -66,6 +66,10 @@
   margin-bottom: 1rem;
 }
 
+.hidden_input {
+  display: none;
+}
+
 .remove_button {
   background-color: red;
   box-shadow: none;
