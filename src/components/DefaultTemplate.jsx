@@ -7,11 +7,10 @@ const DefaultTemplate = forwardRef(
     {
       formState,
       selectedShow,
-      handleDownload,
+      isSelected,
+      onSelect,
       isAddToQueueDisabled,
       styles,
-      width,
-      height,
       templateName,
     },
     ref,
@@ -89,17 +88,13 @@ const DefaultTemplate = forwardRef(
                   Fill Image
                 </button>
               </div>
-              {/* this button holds the download functionality,
-                we want to move this functionality to a button in the download queue
-                and replace this buttons functionality with one that puts the processed
-                art in the download queue*/}
-              <button
-                onClick={() => handleDownload(ref, width, height, templateName)}
+              <input
+                type="checkbox"
                 disabled={isAddToQueueDisabled}
-                className={main_styles.stage_download_button}
-              >
-                check
-              </button>
+                checked={isSelected}
+                onChange={() => onSelect(templateName)}
+                className={main_styles.checkbox}
+              />
             </div>
           </div>
         </article>

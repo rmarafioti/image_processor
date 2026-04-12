@@ -11,6 +11,7 @@ import BlueskyTemplate from "./templates/BlueskyTemplate";
 import styles from "./landing_page.module.css";
 
 export default function App() {
+  /* form functionality */
   const formInitialState = {
     show: "",
     month_name: "",
@@ -48,8 +49,52 @@ export default function App() {
 
   const selectedShow = shows.find((show) => show.id === Number(formState.show));
 
+  /* end form functionality */
+
+  /* download functionality */
+
   const templateArchiveRef = useRef(null);
   const templateFeaturedRef = useRef(null);
+  const templateFacebookRef = useRef(null);
+  const templateBlueskyRef = useRef(null);
+
+  /* add this is a separte date file and import? */
+  const templates = [
+    {
+      ref: templateArchiveRef,
+      width: 1400,
+      height: 1400,
+      templateName: "archive",
+    },
+    {
+      ref: templateFeaturedRef,
+      width: 1400,
+      height: 1750,
+      templateName: "featured",
+    },
+    {
+      ref: templateFacebookRef,
+      width: 1200,
+      height: 630,
+      templateName: "facebook",
+    },
+    {
+      ref: templateBlueskyRef,
+      width: 1200,
+      height: 600,
+      templateName: "bluesky",
+    },
+  ];
+
+  const [selectedTemplates, setSelectedTemplates] = useState([]);
+
+  const handleTemplateSelect = (templateName) => {
+    setSelectedTemplates((prev) =>
+      prev.includes(templateName)
+        ? prev.filter((t) => t !== templateName)
+        : [...prev, templateName],
+    );
+  };
 
   const handleDownload = async (ref, width, height, templateName) => {
     if (!ref.current) return;
@@ -79,6 +124,22 @@ export default function App() {
     link.click();
   };
 
+  const handleDownloadAll = async () => {
+    const toDownload = templates.filter((t) =>
+      selectedTemplates.includes(t.templateName),
+    );
+    for (const template of toDownload) {
+      await handleDownload(
+        template.ref,
+        template.width,
+        template.height,
+        template.templateName,
+      );
+    }
+  };
+
+  /* end download functionality */
+
   const isAddToQueueDisabled =
     !formState.show ||
     !formState.default_image ||
@@ -105,6 +166,8 @@ export default function App() {
             selectedShow={selectedShow}
             handleDownload={handleDownload}
             isAddToQueueDisabled={isAddToQueueDisabled}
+            isSelected={selectedTemplates.includes("featured")}
+            onSelect={handleTemplateSelect}
             ref={templateFeaturedRef}
           />
           <ArchiveTemplate
@@ -112,6 +175,8 @@ export default function App() {
             selectedShow={selectedShow}
             handleDownload={handleDownload}
             isAddToQueueDisabled={isAddToQueueDisabled}
+            isSelected={selectedTemplates.includes("archive")}
+            onSelect={handleTemplateSelect}
             ref={templateArchiveRef}
           />
         </div>
@@ -121,16 +186,26 @@ export default function App() {
             selectedShow={selectedShow}
             handleDownload={handleDownload}
             isAddToQueueDisabled={isAddToQueueDisabled}
-            ref={templateArchiveRef}
+            isSelected={selectedTemplates.includes("facebook")}
+            onSelect={handleTemplateSelect}
+            ref={templateFacebookRef}
           />
           <BlueskyTemplate
             formState={formState}
             selectedShow={selectedShow}
             handleDownload={handleDownload}
             isAddToQueueDisabled={isAddToQueueDisabled}
-            ref={templateArchiveRef}
+            isSelected={selectedTemplates.includes("bluesky")}
+            onSelect={handleTemplateSelect}
+            ref={templateBlueskyRef}
           />
         </div>
+        <button
+          onClick={handleDownloadAll}
+          disabled={isAddToQueueDisabled || selectedTemplates.length === 0}
+        >
+          Download Selected
+        </button>
       </section>
     </>
   );

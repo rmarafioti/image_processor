@@ -20,14 +20,20 @@
 .button_section {
   display: flex;
   justify-content: space-between;
+  width: 360px;
 }
 
-.format_button,
-.stage_download_button {
+.format_button {
   margin-top: 1rem;
   width: 120px;
 }
 
 .format_button {
   margin-right: 1rem;
+}
+
+.checkbox {
+  width: 32px;
+  height: 32px;
+  margin-top: 1.2rem;
 }
