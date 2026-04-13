@@ -148,7 +148,7 @@ export default function Controls({
                   />
                   <button
                     onClick={handleClearImage}
-                    disabled={!formState.show_image}
+                    disabled={!formState.show_images}
                     className={styles.remove_button}
                   >
                     Remove Image

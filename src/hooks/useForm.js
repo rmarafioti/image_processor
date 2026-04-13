@@ -7,7 +7,12 @@ const useForm = () => {
     month_name: "",
     day: "",
     guest_host: "",
-    show_image: "",
+    show_images: {
+      archive: "",
+      featured: "",
+      facebook: "",
+      bluesky: "",
+    },
   };
 
   const [formState, setFormState] = useState(formInitialState);
@@ -32,26 +37,47 @@ const useForm = () => {
     if (!file) return;
     const reader = new FileReader();
     reader.onload = (event) => {
-      setFormState((prev) => ({ ...prev, show_image: event.target.result }));
+      setFormState((prev) => ({
+        ...prev,
+        show_images: {
+          archive: event.target.result,
+          featured: event.target.result,
+          facebook: event.target.result,
+          bluesky: event.target.result,
+        },
+      }));
     };
     reader.readAsDataURL(file);
   };
 
   const handleDefaultImage = () => {
-    if (!selectedShow?.default_image) return;
+    if (!selectedShow) return;
     setFormState((prev) => ({
       ...prev,
-      show_image: selectedShow.default_image,
+      show_images: {
+        archive: selectedShow.default_archive || "",
+        featured: selectedShow.default_featured || "",
+        facebook: selectedShow.default_facebook || "",
+        bluesky: selectedShow.default_bluesky || "",
+      },
     }));
   };
 
   const handleClearImage = () => {
-    setFormState((prev) => ({ ...prev, show_image: "" }));
+    setFormState((prev) => ({
+      ...prev,
+      show_images: {
+        archive: "",
+        featured: "",
+        facebook: "",
+        bluesky: "",
+      },
+    }));
   };
 
   const isAddToQueueDisabled =
     !formState.show ||
-    !formState.show_image ||
+    !Object.values(formState.show_images).some(Boolean) ||
     !formState.month_name ||
     /* we need separtate conditions for each tempalate to add to the queue
  - if weekly, the first 4 templates need a name, day and month

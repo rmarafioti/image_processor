@@ -23,15 +23,17 @@ const DefaultTemplate = forwardRef(
         <article className={main_styles.processor_container}>
           <div>
             <section className={styles.image_container_wrapper}>
-              <div
-                ref={ref}
-                className={styles.image_container}
-                style={
-                  formState.show_image
-                    ? { backgroundImage: `url(${formState.show_image})` }
-                    : undefined
-                }
-              >
+              <div className={styles.image_container_inner} ref={ref}>
+                <div
+                  className={styles.image_container}
+                  style={
+                    formState.show_images[templateName]
+                      ? {
+                          backgroundImage: `url(${formState.show_images[templateName]})`,
+                        }
+                      : undefined
+                  }
+                />
                 <div className={styles.template_bar}>
                   <p className={styles.text}>
                     {selectedShow?.show_name || "Show Name"}

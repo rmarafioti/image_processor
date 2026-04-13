@@ -10,21 +10,29 @@
 .image_container_wrapper {
   /* Compensate for the space the untransformed element would occupy */
   width: calc(1200px * 0.3);
-  height: calc(600px * 0.245);
+  height: calc(600px * 0.3);
   overflow: hidden;
   margin-top: 1rem;
 }
 
-.image_container {
+.image_container_inner {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  height: 480px;
+  /*justify-content: flex-end;*/
+  height: 600px;
   width: 1200px;
-  background-color: #c4c4c4;
+  /*background-color: #c4c4c4;*/
   transform: scale(0.3);
   transform-origin: top left;
 
+  /*background-size: cover;
+  background-position: center;*/
+}
+
+.image_container {
+  width: 1200px;
+  height: 480px;
+  background-color: #c4c4c4;
   background-size: cover;
   background-position: center;
 }
