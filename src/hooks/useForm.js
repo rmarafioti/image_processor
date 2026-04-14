@@ -77,6 +77,7 @@ const useForm = () => {
 
   const isAddToQueueDisabled =
     !formState.show ||
+    // disable if no images have been set across and template
     !Object.values(formState.show_images).some(Boolean) ||
     !formState.month_name ||
     /* we need separtate conditions for each tempalate to add to the queue

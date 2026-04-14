@@ -14,15 +14,10 @@
 .image_container_inner {
   display: flex;
   flex-direction: column;
-  /*justify-content: flex-end;*/
   height: 1750px;
   width: 1400px;
-  /*background-color: #c4c4c4;*/
   transform: scale(0.3);
   transform-origin: top left;
-
-  /*background-size: cover;
-  background-position: center;*/
 }
 
 .image_container {
