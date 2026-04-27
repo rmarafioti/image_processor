@@ -98,12 +98,14 @@ export default function Controls({
                   <select
                     className={styles.field}
                     name="month_name"
+                    /* call on month_name.abbrev */
                     value={formState.month_name}
                     aria-label="users_selected_month"
                     onChange={handleFormChange}
                     disabled={!formState.show}
                   >
                     <option value="">Select a month</option>
+                    {/* months.abbrev to be mapped */}
                     {months.map((month, index) => (
                       <option key={index} value={month}>
                         {month}

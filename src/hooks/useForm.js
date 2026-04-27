@@ -79,6 +79,7 @@ const useForm = () => {
     !formState.show ||
     // disable if no images have been set across and template
     !Object.values(formState.show_images).some(Boolean) ||
+    /* call on month name .abbrev */
     !formState.month_name ||
     /* we need separtate conditions for each tempalate to add to the queue
  - if weekly, the first 4 templates need a name, day and month
