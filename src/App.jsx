@@ -101,9 +101,24 @@ export default function App() {
     ref.current.style.transform = "scale(0.3)";
 
     const year = String(new Date().getFullYear()).slice(-2);
-    const month = formState.month_name?.toUpperCase() || "XXX";
+    const month_monthly = formState.month_name.abbrev?.toUpperCase() || "XXX";
+    const month_weekly = formState.month_name.numeric || "XX";
+    const date_of_show = formState.day || "XX";
+
     const showName =
-      selectedShow?.show_name?.toLowerCase().replace(/\s+/g, "-") || "show-art";
+      selectedShow?.show_name?.toLowerCase().replace(/\s+/g, "-") ||
+      "show-name";
+
+    const day_of_show = selectedShow?.weekday || "no weekday found";
+    const week_of = selectedShow?.week_of_month || "X";
+    const time = selectedShow?.time || "00.00";
+
+    const fileNameForPostsMonthly = `${month_monthly}${year}-${showName}-${templateName}`;
+    const fileNameForPostsWeekly = `${month_weekly}${year}-${showName}-${templateName}`;
+    const fileNameNowPlayingMonthly = `${month_monthly}${year}-${time}-${showName}-${templateName}`;
+    const fileNameNowPlayingWeekly = `${month_weekly}${date_of_show}${year}-${time}-${showName}-${templateName}`;
+    const fileNameObsMonthly = `${day_of_show}-${week_of}-${time}-${showName}-${templateName}-${year}`;
+    const filenameObsWeekly = `${day_of_show}=${time}-${showName}-${templateName}-${year}`;
 
     const fileName = `${month}${year}-${showName}-${templateName}`;
 

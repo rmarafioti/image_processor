@@ -13,7 +13,8 @@ export const shows = [
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776127474/fr_image_processor_test/image_testers/facebook_tester_u8w1a3.png",
     default_bluesky:
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776127479/fr_image_processor_test/image_testers/bluesky_tester_l2amkn.png",
-    day: "MON",
+    weekday: "Mon",
+    week_of_month: "",
     frequency: "weekly",
     location: "Brooklyn",
   },
@@ -31,7 +32,8 @@ export const shows = [
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776031931/fr_image_processor_test/big_shoulders_soul_system_defaults/default_facebook_vn1dee.png",
     default_bluesky:
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776031931/fr_image_processor_test/big_shoulders_soul_system_defaults/default_bluesky_pkrpwb.png",
-    day: "SAT",
+    weekday: "Tues",
+    week_of_month: "3",
     frequency: "monthly",
     location: "Chicago",
   },
