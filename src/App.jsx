@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { domToPng } from "modern-screenshot";
 import useForm from "./hooks/useForm";
 
+import { months } from "./data/formSelects";
 import Controls from "./components/Controls";
 import FeaturedTemplate from "./templates/FeaturedTemplate";
 import ArchiveTemplate from "./templates/ArchiveTemplate";
@@ -9,6 +10,47 @@ import FacebookTemplate from "./templates/FacebookTemplate";
 import BlueskyTemplate from "./templates/BlueskyTemplate";
 
 import styles from "./landing_page.module.css";
+
+// Filenaming and download functionality
+const getFileName = (templateName, selectedShow, formState) => {
+  const year = String(new Date().getFullYear()).slice(-2);
+  const showName =
+    selectedShow?.show_name?.toLowerCase().replace(/\s+/g, "-") || "show-name";
+  const frequency = selectedShow?.frequency;
+  const selectedMonth = months.find((m) => m.abbrev === formState.month_name);
+  const month_monthly = formState.month_name.toUpperCase() || "XXX";
+  const month_weekly = selectedMonth?.numeric || "XX";
+  const date_of_show = formState.day || "XX";
+  const day_of_show = selectedShow?.weekday || "no weekday found";
+  const week_of = selectedShow?.week_of_month || "X";
+  const time = selectedShow?.time || "00.00";
+
+  const fileNamePostsMonthly = `${month_monthly}${year}-${showName}-${templateName}`;
+  const fileNamePostsWeekly = `${month_weekly}${date_of_show}${year}-${showName}-${templateName}`;
+
+  const fileNames = {
+    featured: {
+      monthly: fileNamePostsMonthly,
+      weekly: fileNamePostsWeekly,
+    },
+    archive: { monthly: fileNamePostsMonthly, weekly: fileNamePostsWeekly },
+    facebook: {
+      monthly: fileNamePostsMonthly,
+      weekly: fileNamePostsWeekly,
+    },
+    bluesky: { monthly: fileNamePostsMonthly, weekly: fileNamePostsWeekly },
+    "now-playing": {
+      monthly: `${month_monthly}${year}-${time}-${showName}-${templateName}`,
+      weekly: `${month_weekly}${date_of_show}${year}-${time}-${showName}-${templateName}`,
+    },
+    obs: {
+      monthly: `${day_of_show}-${week_of}-${time}-${showName}-${templateName}-${year}`,
+      weekly: `${day_of_show}-${time}-${showName}-${templateName}-${year}`,
+    },
+  };
+
+  return fileNames[templateName][frequency];
+};
 
 export default function App() {
   /* handle form functionality */
@@ -100,27 +142,7 @@ export default function App() {
     // Restore the transform
     ref.current.style.transform = "scale(0.3)";
 
-    const year = String(new Date().getFullYear()).slice(-2);
-    const month_monthly = formState.month_name.abbrev?.toUpperCase() || "XXX";
-    const month_weekly = formState.month_name.numeric || "XX";
-    const date_of_show = formState.day || "XX";
-
-    const showName =
-      selectedShow?.show_name?.toLowerCase().replace(/\s+/g, "-") ||
-      "show-name";
-
-    const day_of_show = selectedShow?.weekday || "no weekday found";
-    const week_of = selectedShow?.week_of_month || "X";
-    const time = selectedShow?.time || "00.00";
-
-    const fileNameForPostsMonthly = `${month_monthly}${year}-${showName}-${templateName}`;
-    const fileNameForPostsWeekly = `${month_weekly}${year}-${showName}-${templateName}`;
-    const fileNameNowPlayingMonthly = `${month_monthly}${year}-${time}-${showName}-${templateName}`;
-    const fileNameNowPlayingWeekly = `${month_weekly}${date_of_show}${year}-${time}-${showName}-${templateName}`;
-    const fileNameObsMonthly = `${day_of_show}-${week_of}-${time}-${showName}-${templateName}-${year}`;
-    const filenameObsWeekly = `${day_of_show}=${time}-${showName}-${templateName}-${year}`;
-
-    const fileName = `${month}${year}-${showName}-${templateName}`;
+    const fileName = getFileName(templateName, selectedShow, formState);
 
     const link = document.createElement("a");
     link.download = `${fileName}.png`;

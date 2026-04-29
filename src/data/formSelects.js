@@ -44,21 +44,6 @@ export const days = Array.from({ length: 31 }, (_, i) =>
 );
 
 export const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];
-
-/*export const months = [
   { abbrev: "Jan", numeric: "01" },
   { abbrev: "Feb", numeric: "02" },
   { abbrev: "Mar", numeric: "03" },
@@ -71,4 +56,4 @@ export const months = [
   { abbrev: "Oct", numeric: "10" },
   { abbrev: "Nov", numeric: "11" },
   { abbrev: "Dec", numeric: "12" },
-];*/
+];
