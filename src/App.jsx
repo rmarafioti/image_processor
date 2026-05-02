@@ -8,6 +8,8 @@ import FeaturedTemplate from "./templates/FeaturedTemplate";
 import ArchiveTemplate from "./templates/ArchiveTemplate";
 import FacebookTemplate from "./templates/FacebookTemplate";
 import BlueskyTemplate from "./templates/BlueskyTemplate";
+import NowPlayingTemplate from "./templates/NowPlayingTemplate";
+import ObsTemplate from "./templates/ObsTemplate";
 
 import styles from "./landing_page.module.css";
 
@@ -98,6 +100,8 @@ export default function App() {
   const templateFeaturedRef = useRef(null);
   const templateFacebookRef = useRef(null);
   const templateBlueskyRef = useRef(null);
+  const templateNowPlayingRef = useRef(null);
+  const templateObsRef = useRef(null);
 
   const templates = [
     {
@@ -123,6 +127,18 @@ export default function App() {
       width: 1200,
       height: 600,
       templateName: "bluesky",
+    },
+    {
+      ref: templateNowPlayingRef,
+      width: 1200,
+      height: 630,
+      templateName: "now-playing",
+    },
+    {
+      ref: templateObsRef,
+      width: 1200,
+      height: 630,
+      templateName: "Obs",
     },
   ];
 
@@ -224,6 +240,26 @@ export default function App() {
             isSelected={selectedTemplates.includes("bluesky")}
             onSelect={handleTemplateSelect}
             ref={templateBlueskyRef}
+          />
+        </div>
+        <div className={styles.template_section}>
+          <NowPlayingTemplate
+            formState={formState}
+            selectedShow={selectedShow}
+            handleDownload={handleDownload}
+            isAddToQueueDisabled={isAddToQueueDisabled}
+            isSelected={selectedTemplates.includes("now-playing")}
+            onSelect={handleTemplateSelect}
+            ref={templateNowPlayingRef}
+          />
+          <ObsTemplate
+            formState={formState}
+            selectedShow={selectedShow}
+            handleDownload={handleDownload}
+            isAddToQueueDisabled={isAddToQueueDisabled}
+            isSelected={selectedTemplates.includes("obs")}
+            onSelect={handleTemplateSelect}
+            ref={templateObsRef}
           />
         </div>
         <button
