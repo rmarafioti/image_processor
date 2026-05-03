@@ -130,15 +130,15 @@ export default function App() {
     },
     {
       ref: templateNowPlayingRef,
-      width: 1200,
-      height: 630,
+      width: 1080,
+      height: 1920,
       templateName: "now-playing",
     },
     {
       ref: templateObsRef,
-      width: 1200,
-      height: 630,
-      templateName: "Obs",
+      width: 1920,
+      height: 1080,
+      templateName: "obs",
     },
   ];
 

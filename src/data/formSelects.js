@@ -4,7 +4,7 @@ export const shows = [
     show_name: "Test SHow",
     host_name: "Test Host",
     time: "12.00 ET",
-    /* time_range: "" */
+    time_range: "0 - 00.00 ET",
     default_featured:
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776127474/fr_image_processor_test/image_testers/featured_tester_smaxfd.png",
     default_archive:
@@ -23,7 +23,7 @@ export const shows = [
     show_name: "Big Shoulders Soul System",
     host_name: "Rich Marafioti",
     time: "18.00 ET",
-    /* time_range: "" */
+    time_range: "18 - 20.00 ET",
     default_featured:
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776031932/fr_image_processor_test/big_shoulders_soul_system_defaults/default_featured_iujco0.png",
     default_archive:

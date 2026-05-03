@@ -1,0 +1,93 @@
+.template {
+  margin-right: 2rem;
+}
+
+.header_container {
+  display: flex;
+  width: 420px;
+}
+
+.image_container_wrapper {
+  /* Compensate for the space the untransformed element would occupy */
+  width: calc(1080px * 0.3);
+  height: calc(1920px * 0.3);
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.image_container_inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 1920px;
+  width: 1080px;
+  transform: scale(0.3);
+  transform-origin: top left;
+}
+
+.image_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  width: 1080px;
+  height: 1920px;
+  background-color: #c4c4c4;
+  background-size: cover;
+  background-position: center;
+}
+
+.template_bar, 
+.now_playing {
+  position: absolute;
+  top: 1625px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 1080px;
+  height: 150px;
+}
+
+.now_playing {
+  height: 100px;
+  top: 180px;
+}
+
+.text,
+.show_info,
+.now_playing_text {
+  font-size: 34pt;
+  color: #000000;
+  letter-spacing: 0.18em;
+  line-height: .6;
+}
+
+.now_playing_text {
+  font-size: 24pt;
+}
+
+.text {
+  padding-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.show_info_container {
+  display: flex;
+}
+
+.show_info_container > p {
+  font-size: 24pt;
+}
+
+.show_info,
+.now_playing_text {
+  font-family: "b_show_info", sans-serif;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+.bold_text {
+  font-family: "b_show_name", sans-serif;
+}

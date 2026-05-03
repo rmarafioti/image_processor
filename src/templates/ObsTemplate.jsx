@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 import DefaultTemplate from "../components/DefaultTemplate";
 
-import styles from "../styling/facebook_template.module.css";
+import styles from "../styling/obs_template.module.css";
 
 const ObsTemplate = forwardRef((props, ref) => {
   return (
@@ -10,9 +10,9 @@ const ObsTemplate = forwardRef((props, ref) => {
       {...props}
       ref={ref}
       styles={styles}
-      width={1200}
-      height={630}
-      templateName="Obs"
+      width={1920}
+      height={1080}
+      templateName="obs"
     />
   );
 });

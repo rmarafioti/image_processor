@@ -34,38 +34,59 @@ const DefaultTemplate = forwardRef(
                       : undefined
                   }
                 />
-                <div className={styles.template_bar}>
-                  <p className={styles.text}>
-                    {selectedShow?.show_name || "Show Name"}
-                  </p>
-
-                  <div className={styles.show_info_container}>
-                    <p className={styles.show_info}>
-                      {formState.guest_host ||
-                        selectedShow?.host_name ||
-                        "Host Name"}
-                    </p>
-
-                    <p className={styles.show_info}>&#124;</p>
-                    {selectedShow?.frequency === "monthly" ? (
-                      " "
-                    ) : (
-                      <p className={styles.show_info}>
-                        {formState.day || "XX"}
-                      </p>
-                    )}
-                    <p className={styles.show_info}>
-                      {formState.month_name || "XXX"}
-                    </p>
-                    <p className={styles.show_info}>
-                      {new Date().getFullYear()}
-                    </p>
-                    <p className={styles.show_info}>&#124;</p>
-                    <p className={styles.show_info}>
-                      {selectedShow?.time || "00.00 ET"}
+                {templateName === "now-playing" ? (
+                  <div className={styles.now_playing}>
+                    <p className={styles.now_playing_text}>
+                      Now playing on{" "}
+                      <b className={styles.bold_text}>the face radio</b>
                     </p>
                   </div>
-                </div>
+                ) : (
+                  " "
+                )}
+                {templateName === "obs" ? (
+                  <div className={styles.obs}>
+                    <p className={styles.obs_text}>
+                      {selectedShow?.time_range || "Time Range"} |
+                      {selectedShow?.show_name || "Show Name"} |
+                      {selectedShow?.host_name || "Host Name"}
+                      {selectedShow?.location || "Location"}
+                    </p>
+                  </div>
+                ) : (
+                  <div className={styles.template_bar}>
+                    <p className={styles.text}>
+                      {selectedShow?.show_name || "Show Name"}
+                    </p>
+
+                    <div className={styles.show_info_container}>
+                      <p className={styles.show_info}>
+                        {formState.guest_host ||
+                          selectedShow?.host_name ||
+                          "Host Name"}
+                      </p>
+
+                      <p className={styles.show_info}>&#124;</p>
+                      {selectedShow?.frequency === "monthly" ? (
+                        " "
+                      ) : (
+                        <p className={styles.show_info}>
+                          {formState.day || "XX"}
+                        </p>
+                      )}
+                      <p className={styles.show_info}>
+                        {formState.month_name || "XXX"}
+                      </p>
+                      <p className={styles.show_info}>
+                        {new Date().getFullYear()}
+                      </p>
+                      <p className={styles.show_info}>&#124;</p>
+                      <p className={styles.show_info}>
+                        {selectedShow?.time || "00.00 ET"}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
             {isAddToQueueDisabled ? (

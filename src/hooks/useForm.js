@@ -12,6 +12,8 @@ const useForm = () => {
       featured: "",
       facebook: "",
       bluesky: "",
+      "now-playing": "",
+      obs: "",
     },
   };
 
@@ -44,6 +46,8 @@ const useForm = () => {
           featured: event.target.result,
           facebook: event.target.result,
           bluesky: event.target.result,
+          "now-playing": event.target.result,
+          obs: event.target.result,
         },
       }));
     };
@@ -59,6 +63,8 @@ const useForm = () => {
         featured: selectedShow.default_featured || "",
         facebook: selectedShow.default_facebook || "",
         bluesky: selectedShow.default_bluesky || "",
+        "now-playing": selectedShow.default_featured || "",
+        obs: selectedShow.default_featured || "",
       },
     }));
   };
@@ -71,6 +77,8 @@ const useForm = () => {
         featured: "",
         facebook: "",
         bluesky: "",
+        "now-playing": "",
+        obs: "",
       },
     }));
   };

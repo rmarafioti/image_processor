@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 import DefaultTemplate from "../components/DefaultTemplate";
 
-import styles from "../styling/facebook_template.module.css";
+import styles from "../styling/now_playing_template.module.css";
 
 const NowPlayingTemplate = forwardRef((props, ref) => {
   return (
@@ -10,8 +10,8 @@ const NowPlayingTemplate = forwardRef((props, ref) => {
       {...props}
       ref={ref}
       styles={styles}
-      width={1200}
-      height={630}
+      width={1080}
+      height={1920}
       templateName="now-playing"
     />
   );
