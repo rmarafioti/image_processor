@@ -51,10 +51,13 @@ const DefaultTemplate = forwardRef(
                       <p className={styles.obs_text_first_child}>
                         {selectedShow?.time_range || "Time Range"} |
                       </p>
+                      {/* if there is now host name remove the pipe after the show name */}
                       <p>{selectedShow?.show_name || "Show Name"} |</p>
                       <p className={styles.obs_text_host_name}>
-                        {selectedShow?.host_name || "Host Name"}
+                        {selectedShow?.host_name}
                       </p>
+                      {/* location should be its own div / grows with the location name
+                      but also has padding on left and right */}
                       <p className={styles.obs_text_location}>
                         {selectedShow?.location || "Location"}
                       </p>
@@ -73,11 +76,9 @@ const DefaultTemplate = forwardRef(
 
                     <div className={styles.show_info_container}>
                       <p className={styles.show_info}>
-                        {formState.guest_host ||
-                          selectedShow?.host_name ||
-                          "Host Name"}
+                        {formState.guest_host || selectedShow?.host_name}
                       </p>
-
+                      {/* if there is no host name then remove the pipe before the day */}
                       <p className={styles.show_info}>&#124;</p>
                       {selectedShow?.frequency === "monthly" ? (
                         " "
