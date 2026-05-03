@@ -1,10 +1,15 @@
+export const fr_logo = {
+  src: "https://res.cloudinary.com/dzpne110u/image/upload/v1777774380/fr_image_processor_test/fr_logo_mtlc9l.png",
+  alt: "The Face Radio Logo",
+};
+
 export const shows = [
   {
     id: 1,
-    show_name: "Test SHow",
+    show_name: "Test Show",
     host_name: "Test Host",
     time: "12.00 ET",
-    time_range: "0 - 00.00 ET",
+    time_range: "00 - 00.00 ET",
     default_featured:
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776127474/fr_image_processor_test/image_testers/featured_tester_smaxfd.png",
     default_archive:
@@ -13,6 +18,10 @@ export const shows = [
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776127474/fr_image_processor_test/image_testers/facebook_tester_u8w1a3.png",
     default_bluesky:
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776127479/fr_image_processor_test/image_testers/bluesky_tester_l2amkn.png",
+    default_now_playing:
+      "https://res.cloudinary.com/dzpne110u/image/upload/v1776127467/fr_image_processor_test/image_testers/now_playing_tester_qxhcjj.png",
+    default_obs:
+      "https://res.cloudinary.com/dzpne110u/image/upload/v1776127467/fr_image_processor_test/image_testers/obd_mixcloud_tester_dlntrr.png",
     weekday: "Mon",
     week_of_month: "",
     frequency: "weekly",
@@ -32,6 +41,10 @@ export const shows = [
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776031931/fr_image_processor_test/big_shoulders_soul_system_defaults/default_facebook_vn1dee.png",
     default_bluesky:
       "https://res.cloudinary.com/dzpne110u/image/upload/v1776031931/fr_image_processor_test/big_shoulders_soul_system_defaults/default_bluesky_pkrpwb.png",
+    default_now_playing:
+      "https://res.cloudinary.com/dzpne110u/image/upload/v1776127467/fr_image_processor_test/image_testers/now_playing_tester_qxhcjj.png",
+    default_obs:
+      "https://res.cloudinary.com/dzpne110u/image/upload/v1776127467/fr_image_processor_test/image_testers/obd_mixcloud_tester_dlntrr.png",
     weekday: "Tues",
     week_of_month: "3",
     frequency: "monthly",

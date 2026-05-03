@@ -63,8 +63,8 @@ const useForm = () => {
         featured: selectedShow.default_featured || "",
         facebook: selectedShow.default_facebook || "",
         bluesky: selectedShow.default_bluesky || "",
-        "now-playing": selectedShow.default_featured || "",
-        obs: selectedShow.default_featured || "",
+        "now-playing": selectedShow.default_now_playing || "",
+        obs: selectedShow.default_obs || "",
       },
     }));
   };

@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { fr_logo } from "../data/formSelects";
 
 import main_styles from "../styling/default_template.module.css";
 
@@ -45,14 +46,25 @@ const DefaultTemplate = forwardRef(
                   " "
                 )}
                 {templateName === "obs" ? (
-                  <div className={styles.obs}>
-                    <p className={styles.obs_text}>
-                      {selectedShow?.time_range || "Time Range"} |
-                      {selectedShow?.show_name || "Show Name"} |
-                      {selectedShow?.host_name || "Host Name"}
-                      {selectedShow?.location || "Location"}
-                    </p>
-                  </div>
+                  <>
+                    <div className={styles.obs}>
+                      <p className={styles.obs_text_first_child}>
+                        {selectedShow?.time_range || "Time Range"} |
+                      </p>
+                      <p>{selectedShow?.show_name || "Show Name"} |</p>
+                      <p className={styles.obs_text_host_name}>
+                        {selectedShow?.host_name || "Host Name"}
+                      </p>
+                      <p className={styles.obs_text_location}>
+                        {selectedShow?.location || "Location"}
+                      </p>
+                    </div>
+                    <img
+                      className={styles.fr_logo}
+                      src={fr_logo.src}
+                      alt={fr_logo.alt}
+                    />
+                  </>
                 ) : (
                   <div className={styles.template_bar}>
                     <p className={styles.text}>

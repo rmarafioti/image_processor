@@ -18,6 +18,7 @@
 :root {
   --text: #000000;
   --bg: #ece1e1;
+  --fr_orange: #f58220;
 
   color: var(--text);
   background: var(--bg);
