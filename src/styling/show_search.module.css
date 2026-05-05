@@ -1,0 +1,38 @@
+.input_form {
+  border: 1px solid black;
+}
+.input_form,
+.show_list {
+  margin: 1rem 0rem 1rem 0rem;
+}
+
+.show_list {
+  margin-top: 0rem;
+  background-color: #f1dbc7;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.show_names,
+.no_matches {
+  font-family: "b_show_info";
+  font-size: 16px;
+  list-style-type: none;
+  padding: 0.5rem 0.3rem 0.5rem 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  border-bottom: 1px solid #edad71;
+}
+
+.show_names:last-child {
+     border-bottom: none;
+}
+
+.no_matches {
+    border-bottom: none;
+}
+
+.show_names:hover {
+  background-color: var(--fr_orange);
+}

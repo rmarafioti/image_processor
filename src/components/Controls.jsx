@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { shows, months, days } from "../data/formSelects";
+import ShowSearch from "./ShowSearch";
 
 import { MdClose } from "react-icons/md";
 
@@ -35,23 +36,14 @@ export default function Controls({
             >
               <MdClose />
             </button>
-            <div>
-              <p>Select a show</p>
-              <select
-                className={styles.field}
-                name="show"
-                value={formState.show}
-                aria-label="users_selected_show"
-                onChange={handleFormChange}
-              >
-                <option value="">Select a show</option>
-                {shows.map((show) => (
-                  <option key={show.id} value={show.id}>
-                    {show.show_name} / {show.host_name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <ShowSearch
+              value={formState.show}
+              onChange={(show) =>
+                handleFormChange({ target: { name: "show", value: show.id } })
+              }
+              options={shows}
+              //
+            />
             {formState.show !== "" && (
               <>
                 <div>
