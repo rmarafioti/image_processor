@@ -4,10 +4,11 @@ import DefaultTemplate from "../components/DefaultTemplate";
 
 import styles from "../styling/obs_template.module.css";
 
-const ObsTemplate = forwardRef((props, ref) => {
+const ObsTemplate = forwardRef(({ isAddToQueueDisabledObs, ...props }, ref) => {
   return (
     <DefaultTemplate
       {...props}
+      isAddToQueueDisabled={isAddToQueueDisabledObs}
       ref={ref}
       styles={styles}
       width={1920}

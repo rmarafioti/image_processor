@@ -64,7 +64,10 @@ export default function App() {
     handleUploadImage,
     handleDefaultImage,
     handleClearImage,
-    isAddToQueueDisabled,
+    /*isAddToQueueDisabled,*/
+    isAddToQueueDisabledPosts,
+    isAddToQueueDisabledNowPlaying,
+    isAddToQueueDisabledObs,
   } = useForm();
 
   /* select queued up templates */
@@ -80,10 +83,18 @@ export default function App() {
 
   /* clear queued templates when form conditions are not met */
   useEffect(() => {
-    if (isAddToQueueDisabled) {
-      setSelectedTemplates([]);
-    }
-  }, [isAddToQueueDisabled]);
+    setSelectedTemplates((prev) =>
+      prev.filter((t) => {
+        if (t === "now-playing") return !isAddToQueueDisabledNowPlaying;
+        if (t === "obs") return !isAddToQueueDisabledObs;
+        return !isAddToQueueDisabledPosts; // featured, archive, facebook, bluesky
+      }),
+    );
+  }, [
+    isAddToQueueDisabledPosts,
+    isAddToQueueDisabledNowPlaying,
+    isAddToQueueDisabledObs,
+  ]);
 
   /* download status for download button */
   const [downloadStatus, setDownloadStatus] = useState("idle"); // "idle" | "downloading" | "success" | "error"
@@ -207,7 +218,7 @@ export default function App() {
             formState={formState}
             selectedShow={selectedShow}
             handleDownload={handleDownload}
-            isAddToQueueDisabled={isAddToQueueDisabled}
+            isAddToQueueDisabledPosts={isAddToQueueDisabledPosts}
             isSelected={selectedTemplates.includes("featured")}
             onSelect={handleTemplateSelect}
             ref={templateFeaturedRef}
@@ -216,7 +227,7 @@ export default function App() {
             formState={formState}
             selectedShow={selectedShow}
             handleDownload={handleDownload}
-            isAddToQueueDisabled={isAddToQueueDisabled}
+            isAddToQueueDisabledPosts={isAddToQueueDisabledPosts}
             isSelected={selectedTemplates.includes("archive")}
             onSelect={handleTemplateSelect}
             ref={templateArchiveRef}
@@ -227,7 +238,7 @@ export default function App() {
             formState={formState}
             selectedShow={selectedShow}
             handleDownload={handleDownload}
-            isAddToQueueDisabled={isAddToQueueDisabled}
+            isAddToQueueDisabledPosts={isAddToQueueDisabledPosts}
             isSelected={selectedTemplates.includes("facebook")}
             onSelect={handleTemplateSelect}
             ref={templateFacebookRef}
@@ -236,7 +247,7 @@ export default function App() {
             formState={formState}
             selectedShow={selectedShow}
             handleDownload={handleDownload}
-            isAddToQueueDisabled={isAddToQueueDisabled}
+            isAddToQueueDisabledPosts={isAddToQueueDisabledPosts}
             isSelected={selectedTemplates.includes("bluesky")}
             onSelect={handleTemplateSelect}
             ref={templateBlueskyRef}
@@ -247,7 +258,7 @@ export default function App() {
             formState={formState}
             selectedShow={selectedShow}
             handleDownload={handleDownload}
-            isAddToQueueDisabled={isAddToQueueDisabled}
+            isAddToQueueDisabledNowPlaying={isAddToQueueDisabledNowPlaying}
             isSelected={selectedTemplates.includes("now-playing")}
             onSelect={handleTemplateSelect}
             ref={templateNowPlayingRef}
@@ -256,7 +267,7 @@ export default function App() {
             formState={formState}
             selectedShow={selectedShow}
             handleDownload={handleDownload}
-            isAddToQueueDisabled={isAddToQueueDisabled}
+            isAddToQueueDisabledObs={isAddToQueueDisabledObs}
             isSelected={selectedTemplates.includes("obs")}
             onSelect={handleTemplateSelect}
             ref={templateObsRef}
@@ -265,9 +276,13 @@ export default function App() {
         <button
           onClick={handleDownloadAll}
           disabled={
-            isAddToQueueDisabled ||
             selectedTemplates.length === 0 ||
-            downloadStatus === "downloading"
+            downloadStatus === "downloading" ||
+            selectedTemplates.some((t) => {
+              if (t === "now-playing") return isAddToQueueDisabledNowPlaying;
+              if (t === "obs") return isAddToQueueDisabledObs;
+              return isAddToQueueDisabledPosts;
+            })
           }
         >
           {downloadLabel[downloadStatus]}

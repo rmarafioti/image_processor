@@ -83,18 +83,20 @@ const useForm = () => {
     }));
   };
 
-  const isAddToQueueDisabled =
+  const isAddToQueueDisabledPosts =
     !formState.show ||
-    // disable if no images have been set across and template
-    !Object.values(formState.show_images).some(Boolean) ||
-    /* call on month name .abbrev */
     !formState.month_name ||
-    /* we need separtate conditions for each tempalate to add to the queue
- - if weekly, the first 4 templates need a name, day and month
- - if monthly the first 4 templates need a name and month only
- - both weekly and monthly need a name day and month for the 5th template
- - both weekly and monthly need a name, location and full show timespan for the 6th template */
+    !Object.values(formState.show_images).some(Boolean) ||
     (selectedShow?.frequency === "weekly" && !formState.day);
+
+  const isAddToQueueDisabledNowPlaying =
+    !formState.show ||
+    !formState.day ||
+    !formState.month_name ||
+    !Object.values(formState.show_images).some(Boolean);
+
+  const isAddToQueueDisabledObs =
+    !formState.show || !Object.values(formState.show_images).some(Boolean);
 
   return {
     formState,
@@ -104,7 +106,9 @@ const useForm = () => {
     handleUploadImage,
     handleDefaultImage,
     handleClearImage,
-    isAddToQueueDisabled,
+    isAddToQueueDisabledPosts,
+    isAddToQueueDisabledNowPlaying,
+    isAddToQueueDisabledObs,
   };
 };
 

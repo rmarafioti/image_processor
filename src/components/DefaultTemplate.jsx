@@ -66,8 +66,6 @@ const DefaultTemplate = forwardRef(
                           </p>
                         </>
                       )}
-                      {/* location should be its own div / grows with the location name
-                      but also has padding on left and right */}
                       <div className={styles.obs_location_container}>
                         <p className={styles.obs_text_location}>
                           {selectedShow?.location || "Location"}
@@ -98,7 +96,15 @@ const DefaultTemplate = forwardRef(
                           <p className={styles.show_info}>&#124;</p>
                         </>
                       )}
-                      {selectedShow?.frequency === "monthly" ? (
+                      {/* now playing template shows the day for monthly or weekly */}
+                      {(templateName === "archive" &&
+                        selectedShow?.frequency === "monthly") ||
+                      (templateName === "featured" &&
+                        selectedShow?.frequency === "monthly") ||
+                      (templateName === "facebook" &&
+                        selectedShow?.frequency === "monthly") ||
+                      (templateName === "bluesky" &&
+                        selectedShow?.frequency === "monthly") ? (
                         " "
                       ) : (
                         <p className={styles.show_info}>
