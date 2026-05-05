@@ -60,11 +60,11 @@ export default function App() {
     formState,
     selectedShow,
     handleFormChange,
+    handleFormClear,
     handleClearGuestHost,
     handleUploadImage,
     handleDefaultImage,
     handleClearImage,
-    /*isAddToQueueDisabled,*/
     isAddToQueueDisabledPosts,
     isAddToQueueDisabledNowPlaying,
     isAddToQueueDisabledObs,
@@ -178,6 +178,8 @@ export default function App() {
   };
 
   /* download all selected at once */
+  const dialogRef = useRef(null);
+
   const handleDownloadAll = async () => {
     const toDownload = templates.filter((t) =>
       selectedTemplates.includes(t.templateName),
@@ -195,8 +197,10 @@ export default function App() {
         );
       }
       setDownloadStatus("success");
+      dialogRef.current.showModal();
     } catch (error) {
       setDownloadStatus("error");
+      dialogRef.current.showModal();
     }
   };
 
@@ -285,8 +289,31 @@ export default function App() {
             })
           }
         >
-          {downloadLabel[downloadStatus]}
+          {downloadStatus === "downloading"
+            ? "Downloading..."
+            : "Download Selected"}
         </button>
+
+        <dialog ref={dialogRef}>
+          {downloadStatus === "success" ? (
+            <p>Download Successful!</p>
+          ) : (
+            <p>Error Downloading</p>
+          )}
+          <div className={styles.dialog_button_container}>
+            <button onClick={() => dialogRef.current.close()}>
+              Continue Editing
+            </button>
+            <button
+              onClick={() => {
+                dialogRef.current.close();
+                handleFormClear();
+              }}
+            >
+              Edit a New Show
+            </button>
+          </div>
+        </dialog>
       </section>
     </>
   );

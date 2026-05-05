@@ -30,6 +30,10 @@ const useForm = () => {
     }
   };
 
+  const handleFormClear = () => {
+    setFormState(formInitialState);
+  };
+
   const handleClearGuestHost = () => {
     setFormState((prev) => ({ ...prev, guest_host: "" }));
   };
@@ -102,6 +106,7 @@ const useForm = () => {
     formState,
     selectedShow,
     handleFormChange,
+    handleFormClear,
     handleClearGuestHost,
     handleUploadImage,
     handleDefaultImage,

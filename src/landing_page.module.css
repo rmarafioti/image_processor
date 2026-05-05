@@ -9,3 +9,13 @@
   display: flex;
   margin-bottom: 4rem;
 }
+
+.dialog_button_container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.dialog_button_container > button {
+  width: 200px;
+}
