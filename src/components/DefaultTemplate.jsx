@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useState } from "react";
 import { fr_logo } from "../data/formSelects";
 import useEditImage from "../hooks/useEditImage";
 
@@ -13,9 +13,19 @@ const DefaultTemplate = forwardRef((props, ref) => {
     isAddToQueueDisabled,
     styles,
     templateName,
+    imageFill,
   } = props;
 
-  const { position, handleMouseDown, resetPosition } = useEditImage();
+  const [isCropping, setIsCropping] = useState(false);
+  const {
+    position,
+    scale,
+    handleMouseDown,
+    handleMouseMove,
+    handleMouseUp,
+    handleResizeMouseDown,
+    resetPosition,
+  } = useEditImage();
 
   return (
     <article className={styles.template}>
@@ -26,19 +36,65 @@ const DefaultTemplate = forwardRef((props, ref) => {
         <div>
           <section className={styles.image_container_wrapper}>
             <div className={styles.image_container_inner} ref={ref}>
-              <div className={styles.image_container}>
-                {formState.show_images[templateName] && (
-                  <img
-                    src={formState.show_images[templateName]}
-                    className={main_styles.container_image}
-                    style={{
-                      transform: `translate(-50%, -50%) translate(${position.x}px, ${position.y}px)`,
-                    }}
-                    onMouseDown={handleMouseDown}
-                    draggable="false"
-                    alt=""
-                  />
-                )}
+              <div
+                className={styles.image_container}
+                style={isCropping ? { overflow: "visible" } : undefined}
+                onMouseMove={isCropping ? handleMouseMove : undefined}
+                onMouseUp={isCropping ? handleMouseUp : undefined}
+              >
+                {isCropping && <div className={main_styles.crop_frame} />}
+                <div
+                  className={main_styles.image_stage}
+                  style={{
+                    transform: `translate(-50%, -50%) translate(${position.x}px, ${position.y}px)`,
+                    ...(imageFill && { width: "100%" }),
+                  }}
+                >
+                  {formState.show_images[templateName] && (
+                    <div
+                      className={main_styles.image_wrap}
+                      style={{
+                        ...(imageFill ? { width: "100%" } : undefined),
+                        transform: `scale(${scale})`,
+                        transformOrigin: "center center",
+                      }}
+                    >
+                      <img
+                        className={main_styles.image}
+                        src={formState.show_images[templateName]}
+                        onMouseDown={isCropping ? handleMouseDown : undefined}
+                        draggable="false"
+                        alt=""
+                        style={{
+                          ...(imageFill
+                            ? { width: "100%", height: "auto" }
+                            : undefined),
+                          opacity: isCropping ? 0.8 : 1,
+                        }}
+                      />
+                      {isCropping && (
+                        <div className={main_styles.crop_overlay}>
+                          <span
+                            className={`${main_styles.handle} ${main_styles.tl}`}
+                            onMouseDown={(e) => handleResizeMouseDown(e, "tl")}
+                          />
+                          <span
+                            className={`${main_styles.handle} ${main_styles.tr}`}
+                            onMouseDown={(e) => handleResizeMouseDown(e, "tr")}
+                          />
+                          <span
+                            className={`${main_styles.handle} ${main_styles.bl}`}
+                            onMouseDown={(e) => handleResizeMouseDown(e, "bl")}
+                          />
+                          <span
+                            className={`${main_styles.handle} ${main_styles.br}`}
+                            onMouseDown={(e) => handleResizeMouseDown(e, "br")}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
               {templateName === "now-playing" ? (
                 <div className={styles.now_playing}>
@@ -60,7 +116,6 @@ const DefaultTemplate = forwardRef((props, ref) => {
                     <p className={styles.obs_show_name}>
                       {selectedShow?.show_name || "Show Name"}
                     </p>
-                    {/* if there is no host name then remove the pipe before the day */}
                     {selectedShow?.host_name === "" ? (
                       ""
                     ) : (
@@ -88,9 +143,7 @@ const DefaultTemplate = forwardRef((props, ref) => {
                   <p className={styles.text}>
                     {selectedShow?.show_name || "Show Name"}
                   </p>
-
                   <div className={styles.show_info_container}>
-                    {/* if there is no host name then remove the pipe before the day */}
                     {selectedShow?.host_name === "" ? (
                       ""
                     ) : (
@@ -101,7 +154,6 @@ const DefaultTemplate = forwardRef((props, ref) => {
                         <p className={styles.show_info}>&#124;</p>
                       </>
                     )}
-                    {/* now playing template shows the day for monthly or weekly */}
                     {(templateName === "archive" &&
                       selectedShow?.frequency === "monthly") ||
                     (templateName === "featured" &&
@@ -143,11 +195,30 @@ const DefaultTemplate = forwardRef((props, ref) => {
               <i>*Show art is ready to be added to the download queue! 😎</i>
             </p>
           )}
-
-          <div className={main_styles.button_section}>
+          <div
+            className={main_styles.button_section}
+            style={
+              isCropping ? { position: "relative", zIndex: 10 } : undefined
+            }
+          >
             <div>
-              <button className={main_styles.format_button}>Crop Image</button>
-              <button className={main_styles.format_button}>Fill Image</button>
+              <button
+                className={`${main_styles.format_button} ${
+                  isCropping ? main_styles.active_button : ""
+                }`}
+                onClick={() => setIsCropping((prev) => !prev)}
+              >
+                Crop
+              </button>
+              <button
+                className={main_styles.format_button}
+                onClick={() => {
+                  resetPosition();
+                  setIsCropping(false);
+                }}
+              >
+                Fill
+              </button>
             </div>
             <input
               type="checkbox"

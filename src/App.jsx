@@ -157,17 +157,27 @@ export default function App() {
   const handleDownload = async (ref, width, height, templateName) => {
     if (!ref.current) return;
 
-    // Temporarily remove the transform so it captures at full image
-    ref.current.style.transform = "none";
+    // Clone the node
+    const clone = ref.current.cloneNode(true);
 
-    const dataUrl = await domToPng(ref.current, {
+    // Remove scaling on the clone only
+    clone.style.transform = "none";
+
+    // Ensure correct positioning
+    clone.style.position = "fixed";
+    clone.style.top = "0";
+    clone.style.left = "0";
+    clone.style.margin = "0";
+
+    document.body.appendChild(clone);
+
+    const dataUrl = await domToPng(clone, {
       width,
       height,
       scale: 1,
     });
 
-    // Restore the transform
-    ref.current.style.transform = "scale(0.3)";
+    document.body.removeChild(clone);
 
     const fileName = getFileName(templateName, selectedShow, formState);
 

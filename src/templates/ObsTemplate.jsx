@@ -13,6 +13,7 @@ const ObsTemplate = forwardRef(({ isAddToQueueDisabledObs, ...props }, ref) => {
       styles={styles}
       width={1920}
       height={1080}
+      imageFill={true}
       templateName="obs"
     />
   );
