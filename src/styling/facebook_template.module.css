@@ -7,7 +7,6 @@
   /* Compensate for the space the untransformed element would occupy */
   width: calc(1200px * 0.3);
   height: calc(630px * 0.3);
-  overflow: hidden;
   margin-top: 1rem;
 }
 
@@ -23,9 +22,20 @@
 .image_container {
   width: 1200px;
   height: 510px;
+  overflow: hidden;
+  position: relative;
   background-color: #c4c4c4;
-  background-size: cover;
-  background-position: center;
+}
+
+.image_container img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  user-select: none;
 }
 
 .template_bar {

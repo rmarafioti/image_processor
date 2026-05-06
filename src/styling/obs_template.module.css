@@ -7,30 +7,34 @@
   /* Compensate for the space the untransformed element would occupy */
   width: calc(1920px * 0.3);
   height: calc(1080px * 0.3);
-  overflow: hidden;
   margin-top: 1rem;
 }
 
 .image_container_inner {
-  position: relative;
   display: flex;
   flex-direction: column;
   height: 1080px;
   width: 1920px;
+  object-fit: cover;
   transform: scale(0.3);
   transform-origin: top left;
 }
 
 .image_container {
-  position: absolute;
-  top: 0;
-  left: 0;
-
   width: 1920px;
   height: 1080px;
+  overflow: hidden;
+  position: relative;
   background-color: #c4c4c4;
-  background-size: cover;
-  background-position: center;
+}
+
+.image_container img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: auto;
+  user-select: none;
 }
 
 .obs {

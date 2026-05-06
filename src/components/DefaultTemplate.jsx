@@ -32,7 +32,7 @@ const DefaultTemplate = forwardRef((props, ref) => {
                     src={formState.show_images[templateName]}
                     className={main_styles.container_image}
                     style={{
-                      transform: `translate(${position.x}px, ${position.y}px)`,
+                      transform: `translate(-50%, -50%) translate(${position.x}px, ${position.y}px)`,
                     }}
                     onMouseDown={handleMouseDown}
                     draggable="false"
