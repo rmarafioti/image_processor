@@ -194,7 +194,10 @@ const DefaultTemplate = forwardRef((props, ref) => {
           ) : (
             <div className={main_styles.template_ready}>
               <p className={main_styles.note}>
-                <i>*Show art is ready to be added to the download queue! 😎</i>
+                <i>
+                  *Show art is ready! Click the checkbox to add art to the
+                  download queue! 😎
+                </i>
               </p>
               <input
                 type="checkbox"
