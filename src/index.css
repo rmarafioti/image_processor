@@ -40,7 +40,7 @@ body {
 
 h1 {
   font-size: 56px;
-  margin: 2rem
+  margin: 2rem;
 }
 p {
   font-size: 18px;
@@ -50,26 +50,26 @@ p {
 select,
 input,
 button {
-  width: 300px;
-  padding: .8rem .5rem .8rem .5rem;
+  width: 240px;
+  padding: 0.6rem 0.25rem 0.6rem 0.25rem;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 select {
-   cursor: pointer;
+  cursor: pointer;
 }
 
 input {
-  padding-left: .5rem;
+  padding-left: 0.5rem;
   box-shadow: none;
 }
 
 button {
-  font-size: 18px;
-  padding: .5rem;
+  font-size: 16px;
+  padding: 0.5rem;
   transition: background-color 0.3s ease-in-out;
-   cursor: pointer;
+  cursor: pointer;
 }
 
 button:hover {
@@ -97,4 +97,3 @@ dialog {
 dialog::backdrop {
   background: rgba(0, 0, 0, 0.5);
 }
-

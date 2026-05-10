@@ -102,6 +102,18 @@ const useForm = () => {
   const isAddToQueueDisabledObs =
     !formState.show || !Object.values(formState.show_images).some(Boolean);
 
+  const templateKeyMap = {
+    "now-playing": "default_now_playing",
+  };
+
+  const isUploadedImage = (templateName) => {
+    const key = templateKeyMap[templateName] || `default_${templateName}`;
+    return (
+      formState.show_images[templateName] !== "" &&
+      formState.show_images[templateName] !== selectedShow?.[key]
+    );
+  };
+
   return {
     formState,
     selectedShow,
@@ -114,6 +126,7 @@ const useForm = () => {
     isAddToQueueDisabledPosts,
     isAddToQueueDisabledNowPlaying,
     isAddToQueueDisabledObs,
+    isUploadedImage,
   };
 };
 

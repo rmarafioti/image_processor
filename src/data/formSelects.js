@@ -460,7 +460,7 @@ export const shows = [
   },
   {
     id: 27,
-    show_name: "Golazo",
+    show_name: "¡Golazo!",
     host_name: "Matt Pape",
     time: "12.00 ET",
     time_range: "12-14.00 ET",
@@ -1205,6 +1205,23 @@ export const shows = [
     week_of_month: "",
     frequency: "weekly",
     location: "Café Atlas Obscura",
+  },
+  {
+    id: 71,
+    show_name: "Alvorhythms",
+    host_name: "Alvin C",
+    time: "07.00 ET",
+    time_range: "07-09.00",
+    default_featured: "",
+    default_archive: "",
+    default_facebook: "",
+    default_bluesky: "",
+    default_now_playing: "",
+    default_obs: "",
+    weekday: "wed",
+    week_of_month: "4",
+    frequency: "monthly",
+    location: "Maidenhead",
   },
 ];
 

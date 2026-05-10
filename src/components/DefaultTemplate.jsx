@@ -11,6 +11,7 @@ const DefaultTemplate = forwardRef((props, ref) => {
     isSelected,
     onSelect,
     isAddToQueueDisabled,
+    isUploadedImage,
     styles,
     templateName,
     imageFill,
@@ -191,43 +192,47 @@ const DefaultTemplate = forwardRef((props, ref) => {
               </i>
             </p>
           ) : (
-            <p className={main_styles.note}>
-              <i>*Show art is ready to be added to the download queue! 😎</i>
-            </p>
-          )}
-          <div
-            className={main_styles.button_section}
-            style={
-              isCropping ? { position: "relative", zIndex: 10 } : undefined
-            }
-          >
-            <div>
-              <button
-                className={`${main_styles.format_button} ${
-                  isCropping ? main_styles.active_button : ""
-                }`}
-                onClick={() => setIsCropping((prev) => !prev)}
-              >
-                Crop
-              </button>
-              <button
-                className={main_styles.format_button}
-                onClick={() => {
-                  resetPosition();
-                  setIsCropping(false);
-                }}
-              >
-                Fill
-              </button>
+            <div className={main_styles.template_ready}>
+              <p className={main_styles.note}>
+                <i>*Show art is ready to be added to the download queue! 😎</i>
+              </p>
+              <input
+                type="checkbox"
+                disabled={isAddToQueueDisabled}
+                checked={isSelected}
+                onChange={() => onSelect(templateName)}
+                className={main_styles.checkbox}
+              />
             </div>
-            <input
-              type="checkbox"
-              disabled={isAddToQueueDisabled}
-              checked={isSelected}
-              onChange={() => onSelect(templateName)}
-              className={main_styles.checkbox}
-            />
-          </div>
+          )}
+          {isUploadedImage(templateName) && (
+            <div
+              className={main_styles.button_section}
+              style={
+                isCropping ? { position: "relative", zIndex: 10 } : undefined
+              }
+            >
+              <div>
+                <button
+                  className={`${main_styles.format_button} ${
+                    isCropping ? main_styles.active_button : ""
+                  }`}
+                  onClick={() => setIsCropping((prev) => !prev)}
+                >
+                  Crop
+                </button>
+                <button
+                  className={main_styles.format_button}
+                  onClick={() => {
+                    resetPosition();
+                    setIsCropping(false);
+                  }}
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </article>
     </article>

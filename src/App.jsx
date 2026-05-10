@@ -25,7 +25,7 @@ const getFileName = (templateName, selectedShow, formState) => {
   const date_of_show = formState.day || "XX";
   const day_of_show = selectedShow?.weekday || "no weekday found";
   const week_of = selectedShow?.week_of_month || "X";
-  const time = selectedShow?.time || "00.00";
+  const time = selectedShow?.time?.slice(0, 5) || "00.00";
 
   const fileNamePostsMonthly = `${month_monthly}${year}-${showName}-${templateName}`;
   const fileNamePostsWeekly = `${month_weekly}${date_of_show}${year}-${showName}-${templateName}`;
@@ -68,6 +68,7 @@ export default function App() {
     isAddToQueueDisabledPosts,
     isAddToQueueDisabledNowPlaying,
     isAddToQueueDisabledObs,
+    isUploadedImage,
   } = useForm();
 
   /* select queued up templates */
@@ -207,6 +208,7 @@ export default function App() {
         );
       }
       setDownloadStatus("success");
+      setSelectedTemplates([]);
       dialogRef.current.showModal();
     } catch (error) {
       setDownloadStatus("error");
@@ -215,18 +217,9 @@ export default function App() {
   };
 
   return (
-    <>
+    <article className={styles.layout}>
       <section className={styles.center}>
         <h1>image processor</h1>
-        <Controls
-          formState={formState}
-          selectedShow={selectedShow}
-          handleFormChange={handleFormChange}
-          handleClearGuestHost={handleClearGuestHost}
-          handleUploadImage={handleUploadImage}
-          handleDefaultImage={handleDefaultImage}
-          handleClearImage={handleClearImage}
-        />
         <div className={styles.template_section}>
           <FeaturedTemplate
             formState={formState}
@@ -235,6 +228,7 @@ export default function App() {
             isAddToQueueDisabledPosts={isAddToQueueDisabledPosts}
             isSelected={selectedTemplates.includes("featured")}
             onSelect={handleTemplateSelect}
+            isUploadedImage={isUploadedImage}
             ref={templateFeaturedRef}
           />
           <ArchiveTemplate
@@ -244,6 +238,7 @@ export default function App() {
             isAddToQueueDisabledPosts={isAddToQueueDisabledPosts}
             isSelected={selectedTemplates.includes("archive")}
             onSelect={handleTemplateSelect}
+            isUploadedImage={isUploadedImage}
             ref={templateArchiveRef}
           />
         </div>
@@ -255,6 +250,7 @@ export default function App() {
             isAddToQueueDisabledPosts={isAddToQueueDisabledPosts}
             isSelected={selectedTemplates.includes("facebook")}
             onSelect={handleTemplateSelect}
+            isUploadedImage={isUploadedImage}
             ref={templateFacebookRef}
           />
           <BlueskyTemplate
@@ -264,6 +260,7 @@ export default function App() {
             isAddToQueueDisabledPosts={isAddToQueueDisabledPosts}
             isSelected={selectedTemplates.includes("bluesky")}
             onSelect={handleTemplateSelect}
+            isUploadedImage={isUploadedImage}
             ref={templateBlueskyRef}
           />
         </div>
@@ -275,6 +272,7 @@ export default function App() {
             isAddToQueueDisabledNowPlaying={isAddToQueueDisabledNowPlaying}
             isSelected={selectedTemplates.includes("now-playing")}
             onSelect={handleTemplateSelect}
+            isUploadedImage={isUploadedImage}
             ref={templateNowPlayingRef}
           />
           <ObsTemplate
@@ -284,47 +282,48 @@ export default function App() {
             isAddToQueueDisabledObs={isAddToQueueDisabledObs}
             isSelected={selectedTemplates.includes("obs")}
             onSelect={handleTemplateSelect}
+            isUploadedImage={isUploadedImage}
             ref={templateObsRef}
           />
         </div>
-        <button
-          onClick={handleDownloadAll}
-          disabled={
-            selectedTemplates.length === 0 ||
-            downloadStatus === "downloading" ||
-            selectedTemplates.some((t) => {
-              if (t === "now-playing") return isAddToQueueDisabledNowPlaying;
-              if (t === "obs") return isAddToQueueDisabledObs;
-              return isAddToQueueDisabledPosts;
-            })
-          }
-        >
-          {downloadStatus === "downloading"
-            ? "Downloading..."
-            : "Download Selected"}
-        </button>
-
-        <dialog ref={dialogRef}>
-          {downloadStatus === "success" ? (
-            <p>Download Successful!</p>
-          ) : (
-            <p>Error Downloading</p>
-          )}
-          <div className={styles.dialog_button_container}>
-            <button onClick={() => dialogRef.current.close()}>
-              Continue Editing
-            </button>
-            <button
-              onClick={() => {
-                dialogRef.current.close();
-                handleFormClear();
-              }}
-            >
-              Edit a New Show
-            </button>
-          </div>
-        </dialog>
       </section>
-    </>
+      <Controls
+        formState={formState}
+        selectedShow={selectedShow}
+        handleFormChange={handleFormChange}
+        handleClearGuestHost={handleClearGuestHost}
+        handleUploadImage={handleUploadImage}
+        handleDefaultImage={handleDefaultImage}
+        handleClearImage={handleClearImage}
+        selectedTemplates={selectedTemplates}
+        downloadStatus={downloadStatus}
+        handleDownloadAll={handleDownloadAll}
+        isAddToQueueDisabledPosts={isAddToQueueDisabledPosts}
+        isAddToQueueDisabledNowPlaying={isAddToQueueDisabledNowPlaying}
+        isAddToQueueDisabledObs={isAddToQueueDisabledObs}
+        dialogRef={dialogRef}
+        handleFormClear={handleFormClear}
+      />
+      <dialog ref={dialogRef}>
+        {downloadStatus === "success" ? (
+          <p>Download Successful!</p>
+        ) : (
+          <p>Error Downloading</p>
+        )}
+        <div className={styles.dialog_button_container}>
+          <button onClick={() => dialogRef.current.close()}>
+            Continue Editing
+          </button>
+          <button
+            onClick={() => {
+              dialogRef.current.close();
+              handleFormClear();
+            }}
+          >
+            Edit a New Show
+          </button>
+        </div>
+      </dialog>
+    </article>
   );
 }

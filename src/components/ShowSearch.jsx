@@ -71,16 +71,18 @@ export default function ShowSearch({ value, onChange, options = [] }) {
       {isOpen && (
         <ul className={styles.show_list}>
           {filteredOptions.length > 0 ? (
-            filteredOptions.map((show) => (
-              <li
-                className={styles.show_names}
-                key={show.id}
-                onClick={() => handleSelect(show)}
-              >
-                {show.show_name}
-                {show.host_name ? ` / ${show.host_name}` : ""}
-              </li>
-            ))
+            [...filteredOptions]
+              .sort((a, b) => a.show_name.localeCompare(b.show_name))
+              .map((show) => (
+                <li
+                  className={styles.show_names}
+                  key={show.id}
+                  onClick={() => handleSelect(show)}
+                >
+                  {show.show_name}
+                  {show.host_name ? ` / ${show.host_name}` : ""}
+                </li>
+              ))
           ) : (
             <li className={styles.no_matches}>No matches found</li>
           )}
